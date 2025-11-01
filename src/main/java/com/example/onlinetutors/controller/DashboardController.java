@@ -1,0 +1,26 @@
+package com.example.onlinetutors.controller;
+
+import com.example.onlinetutors.model.Email;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class DashboardController {
+
+    @GetMapping("/admin")
+    public String getDashboardPage() {
+        return "admin/index";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+        return "admin/login";
+    }
+
+    @GetMapping("/email")
+    public String getEmailPage(Model model) {
+        model.addAttribute("email", new Email());
+        return "admin/email";
+    }
+}
