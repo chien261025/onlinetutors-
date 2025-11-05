@@ -4,6 +4,7 @@ import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.service.UserService;
 import com.example.onlinetutors.util.enumclass.StatusUserEnum;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -46,7 +48,13 @@ public class UserController {
 
     @GetMapping("/admin/user/edit/{id}")
     public String getEditUserPage(Model model, @ModelAttribute("id") Long id) {
-        User user = this.userService.getUserById(id);
+        User user = null;
+        try {
+            user = this.userService.getUserById(id);
+        } catch (
+                RuntimeException e) {
+            log.info(e.getMessage());
+        }
         model.addAttribute("editUser", user);
         return "admin/user/editUser";
     }

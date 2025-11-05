@@ -1,13 +1,13 @@
 package com.example.onlinetutors.repository;
 
 import com.example.onlinetutors.model.User;
+import com.example.onlinetutors.model.VerificationTokens;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
-    boolean existsByEmail(String email);
+public interface VerificationTokensRepository extends JpaRepository<VerificationTokens, Long> {
+    Optional<VerificationTokens> findByToken(String token);
 }
