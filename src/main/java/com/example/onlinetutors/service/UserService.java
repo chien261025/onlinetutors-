@@ -17,4 +17,6 @@ public interface UserService {
     User getUserByEmail(String email);
     void signupUser(Signup signup);
     String verifyUser(String token);
+    void sendResetLink(String email);
+    void resetPassword(String token, String newPassword);
 }
