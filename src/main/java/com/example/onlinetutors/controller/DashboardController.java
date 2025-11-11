@@ -65,41 +65,8 @@ public class DashboardController {
         userService.verifyUser(secretCode);
         return "redirect:/login";
     }
-
-    @GetMapping("/forgotPassword")
-    public String getForgotPasswordPage() {
-        return "admin/forgotPassword";
-    }
-
-    @PostMapping("/find-email")
-    public String handleFindEmail(Model model, @RequestParam("email") String email) {
-        try {
-            userService.sendResetLink(email);
-            model.addAttribute("message", "Vui lòng kiểm tra email để đặt lại mật khẩu!");
-        } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            return "admin/forgotPassword";
-        }
-        return "admin/forgotPassword";
-    }
-
-    @GetMapping("/reset-password")
-    public String getResetPasswordPage(@RequestParam("resetToken") String resetToken, Model model) {
-        model.addAttribute("token", resetToken);
-        return "admin/resetPassword";
-    }
-
-    @PostMapping("confirm-password")
-    public String handleConfirmPassword(@RequestParam("token") String token,
-                                        @RequestParam("password") String password,
-                                        @RequestParam("confirmPassword") String confirmPassword,
-                                        Model model) {
-        if(!password.equals(confirmPassword)){
-            model.addAttribute("error", "Mật khẩu xác nhận không khớp!");
-            model.addAttribute("token", token);
-            return "admin/resetPassword";
-        }
-        userService.resetPassword(token, password);
-        return "redirect:/login";
+    @GetMapping("/home")
+    public String getHomePage() {
+        return "client/parent/home";
     }
 }
