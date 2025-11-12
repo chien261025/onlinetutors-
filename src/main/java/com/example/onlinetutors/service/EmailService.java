@@ -24,6 +24,9 @@ public class EmailService {
     @Value("${spring.sendgrid.from-email}")
     private String from;
 
+    @Value("${spring.sendgrid.templateId}")
+    private String templateId;
+
     private final SendGrid sendGrid;
 
 
@@ -54,7 +57,7 @@ public class EmailService {
             log.error("Error sending email: {}", ex.getMessage());
         }
     }
-    public void emailVerificationCode(String to, @NotBlank(message = "Name is required") String name, String verifyUrl,String templateId) {
+    public void emailVerificationCode(String to, @NotBlank(message = "Name is required") String name, String verifyUrl) {
         // định nghĩa template variables
         Email fromEmail = new Email(from);
         Email toEmail = new Email(to);
@@ -91,10 +94,4 @@ public class EmailService {
             log.error("Error sending email: {}", ex.getMessage());
         }
     }
-
-    public void emailResetPassword(String to, String name, String linkReset, String templateId) {
-        emailVerificationCode(to, name, linkReset, templateId);
-    }
-
-
 }
