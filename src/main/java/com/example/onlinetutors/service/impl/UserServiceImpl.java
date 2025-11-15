@@ -1,10 +1,8 @@
 package com.example.onlinetutors.service.impl;
 
-import com.example.onlinetutors.model.PasswordResetToken;
 import com.example.onlinetutors.model.Signup;
 import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.model.VerificationTokens;
-import com.example.onlinetutors.repository.PasswordResetTokenRepository;
 import com.example.onlinetutors.repository.RoleRepository;
 import com.example.onlinetutors.repository.SignupRepository;
 import com.example.onlinetutors.repository.UserRepository;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.Transient;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,36 +27,24 @@ public  class UserServiceImpl implements UserService {
     @Value("${spring.sendgrid.verification-link}")
     private String link;
 
-    @Value("${spring.sendgrid.reset-password-link}")
-    private String linkResetPassword;
-
-    @Value("${spring.sendgrid.reset_templateId}")
-    private String resetTemplateId;
-
-    @Value("${spring.sendgrid.templateId}")
-    private String templateId;
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final SignupRepository signupRepository;
     private final VerificationTokensRepository verificationTokensRepository;
     private final EmailService emailService;
-    private final PasswordResetTokenRepository passwordResetTokenRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder,
                            SignupRepository signupRepository,
                            VerificationTokensRepository verificationTokensRepository,
-                           PasswordResetTokenRepository passwordResetTokenRepository,
                            EmailService emailService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.signupRepository = signupRepository;
         this.verificationTokensRepository = verificationTokensRepository;
-        this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.emailService = emailService;
     }
 
@@ -152,7 +137,7 @@ public  class UserServiceImpl implements UserService {
         // tao link xac thuc
         String verifyUrl = link + "?secretCode=" + token;
 
-        emailService.emailVerificationCode(signup.getEmail(), signup.getName(), verifyUrl, templateId);
+        emailService.emailVerificationCode(signup.getEmail(), signup.getName(), verifyUrl);
         log.info("Verification email sent to: {}", signup.getEmail());
     }
 
@@ -182,38 +167,5 @@ public  class UserServiceImpl implements UserService {
         return "Invalid Token!";
     }
 
-    @Override
-    public void sendResetLink(String email) {
-        User user = getUserByEmail(email);
-        if(user == null){
-            log.error("User with email: {} not found for password reset", email);
-            throw new RuntimeException("User not found");
-        }
-        // tạo token
-        String token = java.util.UUID.randomUUID().toString();
-        PasswordResetToken passwordResetToken = new PasswordResetToken(token, email, LocalDateTime.now().plusMinutes(30));
-        passwordResetTokenRepository.save(passwordResetToken);
-        // tạo link reset
-        String resetLink = linkResetPassword + "?resetToken=" + token;
-        emailService.emailResetPassword(email, user.getName(),resetLink, resetTemplateId);
-    }
 
-    @Override
-    public void resetPassword(String token, String newPassword) {
-        PasswordResetToken byToken = passwordResetTokenRepository.findByToken(token);
-        if (byToken == null) {
-            log.error("Invalid password reset token: {}", token);
-            throw new RuntimeException("Invalid token");
-        }
-        if (byToken.getExpiryTimeInMinutes().isBefore(LocalDateTime.now())) {
-            log.error("Password reset token expired: {}", token);
-            throw new RuntimeException("Token has expired");
-        }
-        User user = getUserByEmail(byToken.getEmail());
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-        // xoa token sau khi reset
-        passwordResetTokenRepository.delete(byToken);
-        log.info("Password reset successfully for user: {}", user.getEmail());
-    }
 }
