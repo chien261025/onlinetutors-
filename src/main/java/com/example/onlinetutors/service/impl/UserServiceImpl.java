@@ -168,7 +168,7 @@ public  class UserServiceImpl implements UserService {
                 user.setEmail(signup.getEmail());
                 user.setPassword(signup.getPassword());
                 user.setStatusUser(StatusUserEnum.ACTIVE);
-                user.setRole(roleRepository.findByName("TUTOR"));
+                user.setRole(roleRepository.findByName("PARENT"));
                 userRepository.save(user);
                 // xoa token sau khi xac thuc
                 verificationTokensRepository.delete(tokenSignup);

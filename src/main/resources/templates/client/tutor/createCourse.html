@@ -30,28 +30,32 @@
 <div th:replace="fragments/clientHeader :: clientHeader"></div>
 <!-- Topbar End -->
 
-<!-- Category Start -->
-<div class="container-fluid py-5">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-5">
-            <h1>MY COURSE</h1>
-        </div>
-        <div class="row">
-            <div th:each="course : ${courses}">
-                <div class="col-12 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid" th:src="@{/client/img/cat-2.jpg}" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="">
-                            <h4 class="text-white font-weight-medium" th:text="${course.nameCourse}"></h4>
-                            <span>100 Courses</span>
-                        </a>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Create Course</h6>
+                <form th:action="@{/tutor/createCourse}" method="post" th:object="${course}">
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Name Course</label>
+                        <input th:field="*{nameCourse}" type="text" class="form-control" id="Name"
+                               aria-describedby="emailHelp">
+                        </div>
+                    <div class="mb-3">
+                        <label for="descriptionCourse" class="form-label">DescriptionCourse</label>
+                        <textarea th:field="*{descriptionCourse}" class="form-control" id="descriptionCourse"></textarea>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="Price" class="form-label">Price Course</label>
+                        <input  th:field="*{priceCourse}" type="number" class="form-control" id="Price">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<!-- Category Start -->
+
 
 <!-- Footer Start -->
 <div th:replace="fragments/clientFooter :: clientFooter"></div>

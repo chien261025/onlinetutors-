@@ -30,17 +30,17 @@ public class DashboardController {
         return "admin/login";
     }
 
-    @GetMapping("/email")
+    @GetMapping({"/email", "/verification-email"})
     public String getEmailPage(Model model) {
         model.addAttribute("email", new Email());
         return "admin/email";
     }
-
-    @GetMapping("/verification-email")
-    public String getVerificationEmailPage(Model model) {
-        model.addAttribute("email", new Email());
-        return "admin/email";
-    }
+//
+//    @GetMapping("/verification-email")
+//    public String getVerificationEmailPage(Model model) {
+//        model.addAttribute("email", new Email());
+//        return "admin/email";
+//    }
 
     @GetMapping("/signup")
     public String getSignupPage(Model model) {
