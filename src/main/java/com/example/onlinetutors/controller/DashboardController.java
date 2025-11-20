@@ -2,10 +2,14 @@ package com.example.onlinetutors.controller;
 
 import com.example.onlinetutors.model.Email;
 import com.example.onlinetutors.model.Signup;
+import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.service.EmailService;
 import com.example.onlinetutors.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class DashboardController {
 
     private final EmailService emailService;
@@ -30,17 +38,12 @@ public class DashboardController {
         return "admin/login";
     }
 
+
     @GetMapping({"/email", "/verification-email"})
     public String getEmailPage(Model model) {
         model.addAttribute("email", new Email());
         return "admin/email";
     }
-//
-//    @GetMapping("/verification-email")
-//    public String getVerificationEmailPage(Model model) {
-//        model.addAttribute("email", new Email());
-//        return "admin/email";
-//    }
 
     @GetMapping("/signup")
     public String getSignupPage(Model model) {
@@ -65,8 +68,42 @@ public class DashboardController {
         userService.verifyUser(secretCode);
         return "redirect:/login";
     }
-    @GetMapping("/home")
-    public String getHomePage() {
-        return "client/parent/home";
+
+    @GetMapping("/")
+    public String getHomePage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        List<User> tutors = this.userService.getUsersByRoleId(3L);
+        List<String> subjects = List.of("TOAN",
+                "LY",
+                "HOA",
+                "SINH",
+                "ANH",
+                "SU",
+                "ĐIA",
+                "VAN");
+        if (session == null) {
+            model.addAttribute("subjects", subjects);
+            model.addAttribute("tutors", tutors);
+            return "client/home";
+        }
+        String roleName = (String) session.getAttribute("role");
+        model.addAttribute("role", roleName);
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("tutors", tutors);
+        return "client/home";
+    }
+
+    @GetMapping("/teacher")
+    public String getTeacherPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        List<User> tutors = this.userService.getUsersByRoleId(3L);
+        if(session == null) {
+            model.addAttribute("tutors", tutors);
+            return "client/homeTeacher";
+        }
+        String roleName = (String) session.getAttribute("role");
+        model.addAttribute("role", roleName);
+        model.addAttribute("tutors", tutors);
+        return "client/homeTeacher";
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -41,8 +43,9 @@ public class UserController {
 
     @PostMapping(value = "/admin/user/create")
     public String createUserPage(Model model,
-                                 @ModelAttribute("newUser") User user) {
-        this.userService.handleCreateUser(user);
+                                 @ModelAttribute("newUser") User user,
+                                 @RequestParam("imageUser")MultipartFile file) {
+        this.userService.handleCreateUser(user, file);
         return REDIRECT_USER_LIST;
     }
 
@@ -61,8 +64,9 @@ public class UserController {
 
     @PostMapping("/admin/user/editUser")
     public String editUserPage(Model model,
-                               @ModelAttribute("editUser") User user) {
-        this.userService.handleEditUser(user);
+                               @ModelAttribute("editUser") User user,
+                               @RequestParam("imageUser")MultipartFile file) {
+        this.userService.handleEditUser(user, file);
         return REDIRECT_USER_LIST;
     }
 

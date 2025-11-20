@@ -12,9 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "courses")
@@ -44,6 +42,9 @@ public class Course extends AbstractEntity  {
 
     @Column(name = "author")
     private String author;
+
+    @Column(name = "subject")
+    private String subject;
 
     @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
     private List<User> users = new ArrayList<>();

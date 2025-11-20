@@ -35,7 +35,27 @@
         <div class="col-sm-12 col-xl-6">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">Create Course</h6>
-                <form th:action="@{/tutor/createCourse}" method="post" th:object="${course}">
+                <form th:action="@{/tutor/createCourse}" method="post" th:object="${course}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">imager</label>
+                        <input class="form-control" type="file" id="formFile"  accept=".png, .jpg, .jpeg"  name="imageCourse">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="floatingSelect" class="form-label">Name subject</label>
+                        <select class="form-select" id="floatingSelect"
+                                aria-label="Floating label select example" th:field="*{subject}">
+                            <option value="TOAN">Toán</option>
+                            <option value="LY">Lý</option>
+                            <option value="HOa">Hóa</option>
+                            <option value="VAN">Văn</option>
+                            <option value="SINH">Sinh</option>
+                            <option value="ANH">Anh</option>
+                            <option value="SU">Sử</option>
+                            <option value="DIA">Địa</option>
+                        </select>
+                    </div>
+
                     <div class="mb-3">
                         <label for="Name" class="form-label">Name Course</label>
                         <input th:field="*{nameCourse}" type="text" class="form-control" id="Name"

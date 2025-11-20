@@ -44,11 +44,16 @@
                 <div class= "col-xl-12">
                     <div class="bg-light rounded h-100 p-4">
                         <h6 class="mb-4">Edit User</h6>
-                            <form th:action="@{/admin/user/editUser}" method="post" th:object="${editUser}">
+                            <form th:action="@{/admin/user/editUser}" method="post" th:object="${editUser}" enctype="multipart/form-data">
 
                                 <div class="mb-3" style="display: none;">
                                     <label class="form-label">Id</label>
                                         <input type="text" class="form-control" th:field="*{id}" readonly />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Avatar</label>
+                                    <input type="file"  accept=".png, .jpg, .jpeg" class="form-control" id="formFile" name="imageUser">
                                 </div>
 
                                 <div class="mb-3">

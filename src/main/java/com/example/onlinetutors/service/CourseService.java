@@ -9,5 +9,6 @@ import java.util.List;
 public interface CourseService {
     void handleCreateCourse(Course course);
     List<Course> handleGetCoursesByEmail(String email);
+    List<Course> handleGetCoursesBySubject(String subject);
 
 }

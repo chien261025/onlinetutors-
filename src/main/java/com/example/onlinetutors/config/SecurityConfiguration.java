@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
@@ -23,6 +25,10 @@ public class SecurityConfiguration {
 
     @Value("${spring.sendgrid.api-key}")
     private String sendGridApiKey;
+
+    private static final String[] WHITELISTED_URLS = {"/login", "/css/**", "/js/**", "/",
+            "/parent/courses/details", "/parent/courses", "/teacher",
+            "/client/**", "/uploads/images/**", "/signup", "/error"};
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -59,10 +65,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                         .permitAll()
-                        .requestMatchers( "/login", "/css/**", "/js/**",
-                                "/client/**", "/uploads/images/**", "/signup", "/error")
+                        .requestMatchers(WHITELISTED_URLS)
                         .permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/tutor/**").hasRole("TUTOR")
                         .anyRequest().authenticated())
                 .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
                 .formLogin(formLogin -> formLogin

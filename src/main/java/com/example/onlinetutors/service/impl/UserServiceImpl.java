@@ -8,6 +8,7 @@ import com.example.onlinetutors.repository.SignupRepository;
 import com.example.onlinetutors.repository.UserRepository;
 import com.example.onlinetutors.repository.VerificationTokensRepository;
 import com.example.onlinetutors.service.EmailService;
+import com.example.onlinetutors.service.UploadFileService;
 import com.example.onlinetutors.service.UserService;
 import com.example.onlinetutors.util.enumclass.StatusUserEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.beans.Transient;
 import java.util.List;
@@ -33,24 +35,29 @@ public  class UserServiceImpl implements UserService {
     private final SignupRepository signupRepository;
     private final VerificationTokensRepository verificationTokensRepository;
     private final EmailService emailService;
+    private final UploadFileService uploadFileService;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder,
                            SignupRepository signupRepository,
                            VerificationTokensRepository verificationTokensRepository,
-                           EmailService emailService) {
+                           EmailService emailService,
+                           UploadFileService uploadFileService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.signupRepository = signupRepository;
         this.verificationTokensRepository = verificationTokensRepository;
         this.emailService = emailService;
+        this.uploadFileService = uploadFileService;
     }
 
     @Override
-    public void handleCreateUser(User user) {
+    public void handleCreateUser(User user, MultipartFile file) {
         log.info("Creating user: {}", user.getName());
+        String uploadFile = this.uploadFileService.handleSaveUploadFile(file, "uploads/admin/images");
+        user.setAvatar(uploadFile);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(this.roleRepository.findByName(user.getRole().getName()));
         this.userRepository.save(user);
@@ -79,15 +86,26 @@ public  class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void handleEditUser(User user) {
-        User existingUser = getUserById(user.getId());
+    public void handleEditUser(User user, MultipartFile file) {
+        log.info("Editing user with id: {}", user.getId());
+        User existingUser = getUserByEmail(user.getEmail());
         if (existingUser != null) {
+            if (!file.isEmpty()) {
+                String uploadFile = this.uploadFileService.handleSaveUploadFile(file, "uploads/admin/images");
+                existingUser.setAvatar(uploadFile);
+            }
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
             existingUser.setPhone(user.getPhone());
             existingUser.setAddress(user.getAddress());
             existingUser.setRole(this.roleRepository.findByName(user.getRole().getName()));
             existingUser.setStatusUser(user.getStatusUser());
+            if(user.getProfileDescription() != null ) {
+                existingUser.setProfileDescription(user.getProfileDescription());
+            }
+            if(user.getQualification() != null ) {
+                existingUser.setQualification(user.getQualification());
+            }
             this.userRepository.save(existingUser);
         } else {
             log.error("Cannot edit user. User with id: {} not found", user.getId());
@@ -167,5 +185,9 @@ public  class UserServiceImpl implements UserService {
         return "Invalid Token!";
     }
 
+    @Override
+    public List<User> getUsersByRoleId(Long id) {
+        return this.userRepository.findByRole_Id(id);
+    }
 
 }

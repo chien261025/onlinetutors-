@@ -40,6 +40,7 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
         if (user != null) {
             session.setAttribute("fullName", user.getName());
             session.setAttribute("id", user.getId());
+            session.setAttribute("role", user.getRole().getName());
             session.setAttribute("email", user.getEmail());
         }
     }
@@ -49,7 +50,7 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
         Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("ROLE_TUTOR", "/tutor");
         roleTargetUrlMap.put("ROLE_ADMIN", "/admin");
-        roleTargetUrlMap.put("ROLE_PARENT", "/");
+        roleTargetUrlMap.put("ROLE_PARENT", "/home-parent");
 
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

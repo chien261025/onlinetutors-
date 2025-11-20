@@ -4,6 +4,7 @@ package com.example.onlinetutors.service.impl;
 import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.repository.CourseRepository;
 import com.example.onlinetutors.service.CourseService;
+import com.example.onlinetutors.util.enumclass.StatusCourseEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void handleCreateCourse(Course course) {
+        course.setStatusCourse(StatusCourseEnum.ACTIVE);
         this.courseRepository.save(course);
     }
 
@@ -28,8 +30,14 @@ public class CourseServiceImpl implements CourseService {
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("Email must not be null or blank");
         }
-
         return courseRepository.findByAuthor(email);
     }
 
+    @Override
+    public List<Course> handleGetCoursesBySubject(String subject) {
+        if (subject == null || subject.isBlank()) {
+            throw new IllegalArgumentException("Subject must not be null or blank");
+        }
+        return courseRepository.findBySubject(subject);
+    }
 }

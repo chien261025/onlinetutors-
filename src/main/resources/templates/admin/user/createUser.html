@@ -46,7 +46,13 @@
                 <div class= "col-xl-12">
                     <div class="bg-light rounded h-100 p-4">
                         <h6 class="mb-4">Basic Form</h6>
-                        <form th:action="@{/admin/user/create}" method="post" th:object="${newUser}">
+                        <form th:action="@{/admin/user/create}" method="post" th:object="${newUser}" enctype="multipart/form-data">
+
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Avatar</label>
+                                <input type="file"  accept=".png, .jpg, .jpeg" class="form-control" id="formFile" name="imageUser">
+                            </div>
+
                             <div class="mb-3">
                                 <label for="inputName" class="form-label">Name</label>
                                 <input th:field="*{name}" type="text" class="form-control" id="inputName"

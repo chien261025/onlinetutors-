@@ -54,6 +54,9 @@ public class User extends AbstractEntity {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

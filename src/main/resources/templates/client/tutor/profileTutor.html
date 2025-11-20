@@ -101,24 +101,10 @@
 <!--                    </tr>-->
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>jhon@email.com</td>
+                    <tr th:each="course : ${courses}">
+                        <td th:text="${course.nameCourse}"></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mark@email.com</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>jacob@email.com</td>
-                    </tr>
+
                     </tbody>
                 </table>
                 <a th:href="@{/tutor/profile/create-course}" class="btn btn-primary m-2">Create Course</a>

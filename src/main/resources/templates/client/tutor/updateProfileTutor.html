@@ -37,7 +37,18 @@
             <div class="bg-light rounded h-100 p-4 justify-content-center align-items-center">
                 <h6 class="mb-4">Update Profile
                 </h6>
-                <form th:action="@{/tutor/update-profile}" th:object="${tutor}" method="post">
+                <form th:action="@{/tutor/update-profile}" th:object="${tutor}" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3" style="display: none;">
+                        <label class="form-label">Id</label>
+                        <input type="text" class="form-control" th:field="*{id}" readonly />
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <label for="formFile" class="form-label">Avatar</label>
+                        <input type="file"  accept=".png, .jpg, .jpeg" class="form-control" id="formFile" name="imageUser">
+                    </div>
+
                     <div class="form-floating mb-3">
                         <label for="name">Name</label>
                         <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Name">
@@ -58,11 +69,21 @@
                         <label for="profile_description">profile description</label>
                         <input th:field="*{profileDescription}" type="text" class="form-control" id="profile_description" placeholder="profile description">
                     </div>
-                    <div class="form-floating mb-3">
-                        <label for="qualification">qualification</label>
-                        <input th:field="*{qualification}" type="text" class="form-control" id="qualification" placeholder="qualification">
-                    </div>
 
+                    <div class="form-floating mb-3">
+                        <label for="floatingSelect">qualification(Chọn Môn dạy)</label>
+                        <select class="form-select" id="floatingSelect"
+                                aria-label="Floating label select example" th:field="*{qualification}" >
+                            <option value="TOAN">Toán</option>
+                            <option value="VAN">Văn</option>
+                            <option value="ANH">Tiếng Anh</option>
+                            <option value="HOA">Hóa Học</option>
+                            <option value="LY">Vật Lý</option>
+                            <option value="SINH">Sinh Học</option>
+                            <option value="DIA">Địa Lý</option>
+                            <option value="SU">Lịch sử</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Update Profile</button>
                 </form>
             </div>

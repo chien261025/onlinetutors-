@@ -1,6 +1,7 @@
 package com.example.onlinetutors.controller;
 
 import com.example.onlinetutors.model.Course;
+import com.example.onlinetutors.model.Role;
 import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.service.CourseService;
 import com.example.onlinetutors.service.UserService;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class TutorController {
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
         List<Course> courses = this.courseService.handleGetCoursesByEmail(email);
+    model.addAttribute("role", "TUTOR");
         model.addAttribute("courses", courses);
         return "client/tutor/homeTutor";
     }
@@ -54,7 +58,12 @@ public class TutorController {
     }
 
     @PostMapping("/tutor/update-profile")
-    public String postUpdateTutorProfile() {
+    public String postUpdateTutorProfile(@ModelAttribute("tutor") User user,
+                                         @RequestParam("imageUser") MultipartFile file) {
+        Role role = new Role();
+        role.setName("TUTOR");
+        user.setRole(role);
+        this.userService.handleEditUser(user, file);
         return "redirect:/tutor/profile";
     }
 
@@ -63,24 +72,5 @@ public class TutorController {
         return "client/scheduleTutor";
     }
 
-    @GetMapping("/tutor/profile/create-course")
-    public String getCreateCourse(Model model) {
-        Course course = new Course();
-        model.addAttribute("course", course);
-        return "client/tutor/createCourse";
-    }
-
-    @PostMapping("tutor/createCourse")
-    public String postCreateCourse(
-            @ModelAttribute("course") Course course,
-            HttpServletRequest request
-    ) {
-        HttpSession session = request.getSession(false);
-        String email = (String) session.getAttribute("email");
-        log.info("Course Info: {}", course);
-        course.setAuthor(email);
-        this.courseService.handleCreateCourse(course);
-        return "redirect:/tutor/profile";
-    }
 
 }

@@ -23,6 +23,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/client/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -30,29 +32,33 @@
 <div th:replace="fragments/clientHeader :: clientHeader"></div>
 <!-- Topbar End -->
 
-<!-- Category Start -->
-<div class="container-fluid py-5">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-5">
-            <h1>MY COURSE</h1>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" th:each="course : ${courses}">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid" th:src="@{'/client/images/' + ${course.imageUrl}}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Students</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="" th:text="${course.nameCourse}"></a>
-                    </div>
-                </div>
-            </div>
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Responsive Table</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">phone</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${parent.name}"></td>
+                    <td th:text="${parent.email}"></td>
+                    <td th:text="${parent.address}"></td>
+                    <td th:text="${parent.phone}"></td>
+                    <td th:text="${parent.statusUser}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<!-- Category Start -->
 
 <!-- Footer Start -->
 <div th:replace="fragments/clientFooter :: clientFooter"></div>
