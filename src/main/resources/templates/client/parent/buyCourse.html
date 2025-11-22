@@ -23,8 +23,6 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/client/css/style.css}" rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-
 </head>
 
 <body>
@@ -32,34 +30,19 @@
 <div th:replace="fragments/clientHeader :: clientHeader"></div>
 <!-- Topbar End -->
 
-<div class="col-12">
-    <div class="bg-light rounded h-100 p-4">
-        <h6 class="mb-4">Responsive Table</h6>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">phone</th>
-                    <th scope="col">Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td th:text="${parent.name}"></td>
-                    <td th:text="${parent.email}"></td>
-                    <td th:text="${parent.address}"></td>
-                    <td th:text="${parent.phone}"></td>
-                    <td th:text="${parent.statusUser}"></td>
-                </tr>
-                </tbody>
-            </table>
-            <a th:href="@{/parent/profile/update}" type="button" class="btn btn-outline-primary m-2">Chỉnh sửa thông tin</a>
-        </div>
-    </div>
-</div>
+<!-- Navbar Start -->
+<div th:replace="fragments/clientSidebar :: clientSidebar"></div>
+<!-- Navbar End -->
+
+
+<h2>Quét mã QR để thanh toán</h2>
+
+<p>Số tiền: <span th:text="${amount}"></span>₫</p>
+<p>Nội dung: <span th:text="${note}"></span></p>
+
+<img th:src="'data:image/png;base64,' + ${qrBase64}" alt="QR MoMo" style="width:300px;height:300px;">
+<br><br>
+<a th:href="@{/parent/details(id=${courseId})}">Quay lại</a>
 
 <!-- Footer Start -->
 <div th:replace="fragments/clientFooter :: clientFooter"></div>

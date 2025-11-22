@@ -40,4 +40,14 @@ public class CourseServiceImpl implements CourseService {
         }
         return courseRepository.findBySubject(subject);
     }
+
+    @Override
+    public List<Course> handleGetAllCourses() {
+        return courseRepository.findAll();
+    }
+
+    @Override
+    public Course handleGetCourseById(Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
+    }
 }

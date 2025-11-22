@@ -91,48 +91,152 @@
                                 aria-controls="pills-contact" aria-selected="false">Lịch Sử</button>
                     </li>
                 </ul>
+
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="TOAN">
-                        Sit sanctus et stet dolor kasd kasd takimata. Dolor stet dolores nonumy et dolor et eos lorem et, diam ipsum nonumy elitr sanctus dolores voluptua sit dolor, at et et amet nonumy elitr ea et ipsum. Elitr lorem et dolore invidunt eirmod voluptua lorem sed. Sed eirmod sadipscing eos tempor.
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="TOAN" >
+                        <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors.?[qualification == 'TOAN']}" >
+                            <div class="team-item rounded overflow-hidden mb-2">
+                                <div class="team-img position-relative">
+                                    <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                                    <div class="team-social">
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary p-4">
+                                    <h5 th:text="${tutor.name}"></h5>
+                                    <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="VAN">
-                        Invidunt rebum voluptua lorem eirmod dolore. Amet no sed sanctus lorem ea. Nonumy sit stet sit magna. Rebum rebum ipsum clita erat consetetur, sit dolor sit clita et amet. Est et clita dolore takimata, sea dolores tempor erat consetetur lorem. Consetetur sea sadipscing dolor et dolores et stet, tempor elitr.
-                    </div>
-                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="ANH">
-                        Et diam et est sed vero ipsum voluptua dolor et, sit eos justo ipsum no ipsum amet sed aliquyam dolore, ut ipsum sanctus et consetetur. Sit ea sit clita lorem ea gubergren. Et dolore vero sanctus voluptua ipsum sadipscing amet at. Et sed dolore voluptua dolor eos tempor, erat amet.
-                    </div>
-                    <div class="tab-pane fade" id="pills-HOA" role="tabpanel" aria-labelledby="HOA">
-                        Et diam et est sed vero ipsum voluptua dolor et, sit eos justo ipsum no ipsum amet sed aliquyam dolore, ut ipsum sanctus et consetetur. Sit ea sit clita lorem ea gubergren. Et dolore vero sanctus voluptua ipsum sadipscing amet at. Et sed dolore voluptua dolor eos tempor, erat amet.
-                    </div>
-                    <div class="tab-pane fade" id="pills-LY" role="tabpanel" aria-labelledby="LY">
-                        Et diam et est sed vero ipsum voluptua dolor et, sit eos justo ipsum no ipsum amet sed aliquyam dolore, ut ipsum sanctus et consetetur. Sit ea sit clita lorem ea gubergren. Et dolore vero sanctus voluptua ipsum sadipscing amet at. Et sed dolore voluptua dolor eos tempor, erat amet.
-                    </div>
-                    <div class="tab-pane fade" id="pills-SINH" role="tabpanel" aria-labelledby="SINH">
-                        Et diam et est sed vero ipsum voluptua dolor et, sit eos justo ipsum no ipsum amet sed aliquyam dolore, ut ipsum sanctus et consetetur. Sit ea sit clita lorem ea gubergren. Et dolore vero sanctus voluptua ipsum sadipscing amet at. Et sed dolore voluptua dolor eos tempor, erat amet.
-                    </div>
-                    <div class="tab-pane fade" id="pills-DIA" role="tabpanel" aria-labelledby="DIA">
-                        Et diam et est sed vero ipsum voluptua dolor et, sit eos justo ipsum no ipsum amet sed aliquyam dolore, ut ipsum sanctus et consetetur. Sit ea sit clita lorem ea gubergren. Et dolore vero sanctus voluptua ipsum sadipscing amet at. Et sed dolore voluptua dolor eos tempor, erat amet.
-                    </div>
-                    <div class="tab-pane fade" id="pills-SƯ" role="tabpanel" aria-labelledby="SƯ">
-                        Et diam et est sed vero ipsum voluptua dolor et, sit eos justo ipsum no ipsum amet sed aliquyam dolore, ut ipsum sanctus et consetetur. Sit ea sit clita lorem ea gubergren. Et dolore vero sanctus voluptua ipsum sadipscing amet at. Et sed dolore voluptua dolor eos tempor, erat amet.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors}">
-                <div class="team-item rounded overflow-hidden mb-2">
-                    <div class="team-img position-relative">
-                        <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors.?[qualification == 'VAN']}">
+                            <div class="team-item rounded overflow-hidden mb-2">
+                                <div class="team-img position-relative">
+                                    <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                                    <div class="team-social">
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary p-4">
+                                    <h5 th:text="${tutor.name}"></h5>
+                                    <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="bg-secondary p-4">
-                        <h5 th:text="${tutor.name}"></h5>
-                        <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="ANH">
+                        <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors.?[qualification == 'ANH']}">
+                            <div class="team-item rounded overflow-hidden mb-2">
+                                <div class="team-img position-relative">
+                                    <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                                    <div class="team-social">
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary p-4">
+                                    <h5 th:text="${tutor.name}"></h5>
+                                    <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-HOA" role="tabpanel" aria-labelledby="HOA">
+                        <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors.?[qualification == 'HOA']}">
+                            <div class="team-item rounded overflow-hidden mb-2">
+                                <div class="team-img position-relative">
+                                    <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                                    <div class="team-social">
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary p-4">
+                                    <h5 th:text="${tutor.name}"></h5>
+                                    <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-LY" role="tabpanel" aria-labelledby="LY">
+                        <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors.?[qualification == 'LY']}">
+                            <div class="team-item rounded overflow-hidden mb-2">
+                                <div class="team-img position-relative">
+                                    <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                                    <div class="team-social">
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary p-4">
+                                    <h5 th:text="${tutor.name}"></h5>
+                                    <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-SINH" role="tabpanel" aria-labelledby="SINH">
+                        <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors.?[qualification == 'SINH']}">
+                            <div class="team-item rounded overflow-hidden mb-2">
+                                <div class="team-img position-relative">
+                                    <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                                    <div class="team-social">
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary p-4">
+                                    <h5 th:text="${tutor.name}"></h5>
+                                    <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-DIA" role="tabpanel" aria-labelledby="DIA">
+                        <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors.?[qualification == 'DIA']}">
+                            <div class="team-item rounded overflow-hidden mb-2">
+                                <div class="team-img position-relative">
+                                    <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                                    <div class="team-social">
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary p-4">
+                                    <h5 th:text="${tutor.name}"></h5>
+                                    <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-SƯ" role="tabpanel" aria-labelledby="SƯ">
+                        <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors.?[qualification == 'SƯ']}">
+                            <div class="team-item rounded overflow-hidden mb-2">
+                                <div class="team-img position-relative">
+                                    <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                                    <div class="team-social">
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="bg-secondary p-4">
+                                    <h5 th:text="${tutor.name}"></h5>
+                                    <p class="m-0" th:text="${tutor.profileDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

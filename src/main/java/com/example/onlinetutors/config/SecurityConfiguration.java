@@ -27,8 +27,9 @@ public class SecurityConfiguration {
     private String sendGridApiKey;
 
     private static final String[] WHITELISTED_URLS = {"/login", "/css/**", "/js/**", "/",
-            "/parent/courses/details", "/parent/courses", "/teacher",
-            "/client/**", "/uploads/images/**", "/signup", "/error"};
+            "/parent/courses/details", "/parent/courses", "/teacher", "/parent/details",
+            "/adminImg/images/**",
+            "/client/**", "/uploads/**", "/signup", "/error"};
 
     @Bean
     public PasswordEncoder passwordEncoder() {

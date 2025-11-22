@@ -56,7 +56,7 @@ public  class UserServiceImpl implements UserService {
     @Override
     public void handleCreateUser(User user, MultipartFile file) {
         log.info("Creating user: {}", user.getName());
-        String uploadFile = this.uploadFileService.handleSaveUploadFile(file, "uploads/admin/images");
+        String uploadFile = this.uploadFileService.handleSaveUploadFile(file, "uploads/adminImg/images");
         user.setAvatar(uploadFile);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(this.roleRepository.findByName(user.getRole().getName()));
@@ -91,7 +91,7 @@ public  class UserServiceImpl implements UserService {
         User existingUser = getUserByEmail(user.getEmail());
         if (existingUser != null) {
             if (!file.isEmpty()) {
-                String uploadFile = this.uploadFileService.handleSaveUploadFile(file, "uploads/admin/images");
+                String uploadFile = this.uploadFileService.handleSaveUploadFile(file, "uploads/adminImg/images");
                 existingUser.setAvatar(uploadFile);
             }
             existingUser.setName(user.getName());

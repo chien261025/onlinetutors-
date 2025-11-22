@@ -1,8 +1,10 @@
 package com.example.onlinetutors.controller;
 
+import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.model.Email;
 import com.example.onlinetutors.model.Signup;
 import com.example.onlinetutors.model.User;
+import com.example.onlinetutors.service.CourseService;
 import com.example.onlinetutors.service.EmailService;
 import com.example.onlinetutors.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ public class DashboardController {
 
     private final EmailService emailService;
     private final UserService userService;
+    private final CourseService courseService;
 
     @GetMapping("/admin")
     public String getDashboardPage() {
@@ -73,6 +76,7 @@ public class DashboardController {
     public String getHomePage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         List<User> tutors = this.userService.getUsersByRoleId(3L);
+        List<Course> courses = this.courseService.handleGetAllCourses();
         List<String> subjects = List.of("TOAN",
                 "LY",
                 "HOA",
@@ -84,12 +88,14 @@ public class DashboardController {
         if (session == null) {
             model.addAttribute("subjects", subjects);
             model.addAttribute("tutors", tutors);
+            model.addAttribute("courses", courses);
             return "client/home";
         }
         String roleName = (String) session.getAttribute("role");
         model.addAttribute("role", roleName);
         model.addAttribute("subjects", subjects);
         model.addAttribute("tutors", tutors);
+        model.addAttribute("courses", courses);
         return "client/home";
     }
 
@@ -105,5 +111,10 @@ public class DashboardController {
         model.addAttribute("role", roleName);
         model.addAttribute("tutors", tutors);
         return "client/homeTeacher";
+    }
+
+    @GetMapping("/schedule")
+    public String getTutorSchedule() {
+        return "client/scheduleTutor";
     }
 }

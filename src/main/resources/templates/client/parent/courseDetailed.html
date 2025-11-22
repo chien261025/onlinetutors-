@@ -30,13 +30,105 @@
 <div th:replace="fragments/clientHeader :: clientHeader"></div>
 <!-- Topbar End -->
 
-
+<div th:replace="fragments/clientSidebar :: clientSidebar"></div>
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="mb-5">
+                    <h1 class="mb-3 text-dark font-weight-bold" th:text="${course.nameCourse}" ></h1>
+                    <p class="lead"></p>
+                    <div class="position-relative mb-4 rounded overflow-hidden border">
+                        <img class="img-fluid w-100" th:src="@{'/client/images/' + ${course.imageUrl}}" alt="Course Image">
+                        <div class="bg-white position-absolute rounded-circle d-flex align-items-center justify-content-center shadow" style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; cursor: pointer;">
+                            <i class="fa fa-play text-primary fa-2x ml-1"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <ul class="nav nav-pills bg-secondary rounded mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active py-3 px-4 font-weight-bold" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab">Giới thiệu</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+                            <div class="bg-white border rounded p-4 mb-4 shadow-sm">
+                                <h4 class="font-weight-bold mb-3">thông tin</h4>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="btn-square bg-secondary rounded-circle text-primary mr-3">
+                                                <i class="fa fa-certificate"></i>
+                                            </div>
+                                            <span>Hoàng diệu 2.tp.Thủ Đức</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="btn-square bg-secondary rounded-circle text-primary mr-3">
+                                                <i class="fa fa-infinity"></i>
+                                            </div>
+                                            <span>info@example.com</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <div class="btn-square bg-secondary rounded-circle text-primary mr-3">
+                                                <i class="fa fa-laptop-code"></i>
+                                            </div>
+                                            <span th:text="sdt" ></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-5 bg-white border rounded p-4 shadow-sm">
+                                <h3 class="font-weight-bold mb-3 text-dark">Mô tả khóa học</h3>
+                                <p class="text-dark text-justify" th:text="${course.descriptionCourse}">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <div class="card border-0 shadow-sm sticky-top" style="top: 20px;">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <h2 class="text-white font-weight-bold m-0"
+                            th:text="${course.priceCourse != null ? #numbers.formatDecimal(course.priceCourse, 0, 'COMMA', 0, 'POINT') + '₫' : '0₫'}">>
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <h5 class="font-weight-bold text-dark mb-4">Thông tin khóa học</h5>
+                        <ul class="list-unstyled mb-4">
+                            <li class="py-2 border-bottom d-flex justify-content-between">
+                                <span><i class="far fa-clock text-primary mr-2"></i> Thời lượng</span>
+                                <span class="font-weight-bold text-dark">10 buổi</span>
+                            </li>
+                            <li class="py-2 border-bottom d-flex justify-content-between">
+                                <span><i class="fa fa-book-open text-primary mr-2"></i> Môn dạy</span>
+                                <span class="font-weight-bold text-dark" th:text="${course.subject}"></span>
+                            </li>
+                            <li class="py-2 border-bottom d-flex justify-content-between">
+                                <span><i class="fa fa-video text-primary mr-2"></i> hình thức </span>
+                                <span class="font-weight-bold text-dark">offline</span>
+                            </li>
+                            <li class="py-2 d-flex justify-content-between">
+                                <span><i class="fa fa-language text-primary mr-2"></i> liên hệ </span>
+                                <span class="font-weight-bold text-dark" th:if="${author.phone != null}" th:text="${author.phone}"></span>
+                            </li>
+                        </ul>
+                        <a th:href="@{/payment/momo-qr(amount=${course.priceCourse}, note, id=${course.id})}" class="btn btn-primary btn-block py-3 font-weight-bold mb-3">Thanh Toán</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Footer Start -->
 <div th:replace="fragments/clientFooter :: clientFooter"></div>
 <!-- Footer End -->
-
-
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 

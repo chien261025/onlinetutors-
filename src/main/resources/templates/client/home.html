@@ -21,6 +21,16 @@
     <!-- Libraries Stylesheet -->
     <link th:href="@{/client/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
     <link th:href="@{/client/css/style.css}" rel="stylesheet">
+
+    <style>
+        .img-fluid3 {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+}
+    </style>
 </head>
 
 <body>
@@ -107,10 +117,11 @@
                 <h1>Gặp Gỡ Đội Ngũ Giáo Viên Của Chúng Tôi</h1>
             </div>
             <div class="row">
-                <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors}">
+                <div class="col-md-6 col-lg-3 text-center team mb-4" th:each="tutor : ${tutors}"
+                     th:if="${tutor.statusUser == T(com.example.onlinetutors.util.enumclass.StatusUserEnum).ACTIVE}">
                     <div class="team-item rounded overflow-hidden mb-2">
                         <div class="team-img position-relative">
-                            <img class="img-fluid" th:src="@{'/admin/images/' + ${tutor.avatar}}" alt="">
+                            <img class="img-fluid" th:src="@{'/adminImg/images/' + ${tutor.avatar}}" alt="">
                             <div class="team-social">
                                 <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
                                 <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
@@ -144,109 +155,21 @@
                 <h1>Khóa học phổ biến của chúng tôi</h1>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4" th:each="course : ${courses}">
                     <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid3" th:src="@{/client/img/t3.jpg}" alt="">
+                        <img class="img-fluid3"  th:src="@{'/client/images/' + ${course.imageUrl}}" alt="">
                         <div class="bg-secondary p-4">
                             <div class="d-flex justify-content-between mb-3">
                                 <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
                                 <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
                             </div>
-                            <a class="h5" href="">Khóa học Toán </a>
+                            <a class="h5" th:href="@{/parent/details(id=${course.id})}" th:text="${course.nameCourse}"></a>
                             <div class="border-top mt-4 pt-4">
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-primary rounded-pill m-2">Primary</button>
-                                    <h5 class="m-0">9.000.000.vnd</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid20" th:src="@{/client/img/vl1.jpg}" alt="">
-                        <div class="bg-secondary p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                                <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                            </div>
-                            <a class="h5" href="">Khóa học Vật Lý</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary rounded-pill m-2">Primary</button>
-                                    <h5 class="m-0">19.000.000.vnd</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid21" th:src="@{/client/img/nv.jpg}" alt="">
-                        <div class="bg-secondary p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                                <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                            </div>
-                            <a class="h5" href="">Khóa học Ngữ Văn</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary rounded-pill m-2">Primary</button>
-                                    <h5 class="m-0">99.000.000.vnd</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid2" th:src="@{/client/img/ta.jpg}" alt="">
-                        <div class="bg-secondary p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                                <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                            </div>
-                            <a class="h5" href="">Khóa học Tiếng anh </a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary rounded-pill m-2">Primary</button>
-                                    <h5 class="m-0">99.000.000.vnd</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid2" th:src="@{/client/img/dl.jpg}" alt="">
-                        <div class="bg-secondary p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                                <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                            </div>
-                            <a class="h5" href="">Khóa học Địa Lý </a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary rounded-pill m-2">Primary</button>
-                                    <h5 class="m-0">99.000.000.vnd</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid22" th:src="@{/client/img/ls.jpg}" alt="">
-                        <div class="bg-secondary p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                                <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                            </div>
-                            <a class="h5" href="">Khóa học Lịch Sử</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-primary rounded-pill m-2">Primary</button>
-                                    <h5 class="m-0">99.000.000.vnd</h5>
+                                    <h5 class="m-0"
+                                        th:text="${course.priceCourse != null ? #numbers.formatDecimal(course.priceCourse, 0, 'COMMA', 0, 'POINT') + '₫' : '0₫'}">
+                                    </h5>
                                 </div>
                             </div>
                         </div>

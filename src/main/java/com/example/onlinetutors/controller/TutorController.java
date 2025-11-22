@@ -44,9 +44,11 @@ public class TutorController {
         User user = this.userService.getUserByEmail(email);
         List<Course> courses = this.courseService.handleGetCoursesByEmail(email);
         model.addAttribute("tutor", user);
+        model.addAttribute("role", "TUTOR");
         model.addAttribute("courses", courses);
         return "client/tutor/profileTutor";
     }
+
 
     @GetMapping("/tutor/profile/update")
     public String updateTutorProfile(Model model, HttpServletRequest request) {
@@ -66,11 +68,5 @@ public class TutorController {
         this.userService.handleEditUser(user, file);
         return "redirect:/tutor/profile";
     }
-
-    @GetMapping("/tutor/schedule")
-    public String getTutorSchedule() {
-        return "client/scheduleTutor";
-    }
-
 
 }

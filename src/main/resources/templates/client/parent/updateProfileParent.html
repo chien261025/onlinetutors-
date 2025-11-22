@@ -23,7 +23,6 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/client/css/style.css}" rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -35,9 +34,9 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-6">
             <div class="bg-light rounded h-100 p-4 justify-content-center align-items-center">
-                <h6 class="mb-4">Update Profile
+                <h6 class="mb-4">Chỉnh sửa hồ sơ cá nhân
                 </h6>
-                <form th:action="@{/tutor/update-profile}" th:object="${tutor}" method="post" enctype="multipart/form-data">
+                <form th:action="@{/parent/update-profile}" th:object="${parent}" method="post" enctype="multipart/form-data">
 
                     <div class="mb-3" style="display: none;">
                         <label class="form-label">Id</label>
@@ -51,7 +50,7 @@
 
                     <div class="form-floating mb-3">
                         <label for="name">Name</label>
-                        <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Name" >
+                        <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Name">
                     </div>
                     <div class="form-floating mb-3">
                         <label for="email">Email</label>
@@ -66,25 +65,6 @@
                         <input th:field="*{phone}" type="text" class="form-control" id="phone" placeholder="phone">
                     </div>
                     <div class="form-floating mb-3">
-                        <label for="profile_description">profile description</label>
-                        <input th:field="*{profileDescription}" type="text" class="form-control" id="profile_description" placeholder="profile description">
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <label for="floatingSelect">qualification(Chọn Môn dạy)</label>
-                        <select class="form-select" id="floatingSelect"
-                                aria-label="Floating label select example" th:field="*{qualification}" >
-                            <option value="TOAN">Toán</option>
-                            <option value="VAN">Văn</option>
-                            <option value="ANH">Tiếng Anh</option>
-                            <option value="HOA">Hóa Học</option>
-                            <option value="LY">Vật Lý</option>
-                            <option value="SINH">Sinh Học</option>
-                            <option value="DIA">Địa Lý</option>
-                            <option value="SU">Lịch sử</option>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3">
                         <label for="statusUser">status</label>
                         <input th:field="*{statusUser}" type="text" class="form-control" id="statusUser" placeholder="profile description" readonly>
                     </div>
@@ -94,6 +74,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Footer Start -->
 <div th:replace="fragments/clientFooter :: clientFooter"></div>
