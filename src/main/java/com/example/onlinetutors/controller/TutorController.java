@@ -1,9 +1,11 @@
 package com.example.onlinetutors.controller;
 
 import com.example.onlinetutors.model.Course;
+import com.example.onlinetutors.model.Event;
 import com.example.onlinetutors.model.Role;
 import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.service.CourseService;
+import com.example.onlinetutors.service.EventService;
 import com.example.onlinetutors.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +28,7 @@ public class TutorController {
 
     private final UserService userService;
     private final CourseService courseService;
+    private final EventService eventService;
 
     @GetMapping("/tutor")
     public String getParentDashboard(Model model, HttpServletRequest request) {
@@ -68,5 +71,17 @@ public class TutorController {
         this.userService.handleEditUser(user, file);
         return "redirect:/tutor/profile";
     }
+
+    @GetMapping("/tutor/course-update")
+    public String getTutorCourseUpdate(@RequestParam("id") Long courseId,
+                                       Model model) {
+        Course course = this.courseService.handleGetCourseById(courseId);
+        Event event = new Event();
+        event.setTitle(course.getNameCourse());
+        model.addAttribute("event", event);
+        model.addAttribute("course", course);
+        return "client/tutor/updateCourseTutor";
+    }
+
 
 }

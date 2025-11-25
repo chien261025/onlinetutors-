@@ -29,35 +29,22 @@
 <!-- Topbar Start -->
 <div th:replace="~{fragments/clientHeader :: clientHeader}"></div>
 <!-- Topbar End -->
-
 <!-- Navbar Start -->
 <div th:replace="~{fragments/clientSidebar :: clientSidebar}"></div>
 <!-- Navbar End -->
 
-<!-- About Start -->
+
 <div class="container-fluid py-5">
     <div class="container py-5">
         <div class="row align-items-center">
-            <div class="col-lg-7">
-                <div class="text-left mb-4">
-                    <h5 class="text-primary text-uppercase mb-3"
-                        style="letter-spacing: 5px;">
-                        Thanh Toán Hóa Đơn</h5>
-                    <h2>Quét mã QR để thanh toán</h2>
-
-                    <h3>Số tiền: <span th:text="${amount}"></span>₫</h3>
-                    <p>Nội dung: <span th:text="${note}"></span></p>
-
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <img th:src="'data:image/png;base64,' + ${qrBase64}" alt="QR MoMo" style="width:300px;height:300px;">
-            </div>
-        </div>
-        <a class="btn btn-outline-primary m-2" th:href="@{/parent/details(id=${courseId})}">Quay lại</a>
-        <a class="btn btn-outline-primary m-2" th:href="@{/order/success(id=${courseId})}">Thanh toán thành công</a>
+            <h2>Thanh toán thành công khóa học <span th:text="${course.nameCourse}"></span></h2>
+        <a class="btn btn-outline-primary m-2" th:href="@{/parent/details(id=${course.id})}">Xem khóa học của bạn</a>
+        <a class="btn btn-outline-primary m-2" th:href="@{/}">Quay lại trang chủ</a>
+    </div>
     </div>
 </div>
+
+
 <!-- Footer Start -->
 <div th:replace="~{fragments/clientFooter :: clientFooter}"></div>
 <!-- Footer End -->

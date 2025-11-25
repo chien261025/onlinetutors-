@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -61,12 +62,10 @@ public class User extends AbstractEntity {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_courses", // tên bảng trung gian
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id") // khóa ngoại trỏ tới Course
-    )
-    private List<Course> courses = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Order> order;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserEvent> userEvents;
 
 }

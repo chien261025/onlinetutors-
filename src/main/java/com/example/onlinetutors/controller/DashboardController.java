@@ -2,10 +2,13 @@ package com.example.onlinetutors.controller;
 
 import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.model.Email;
+import com.example.onlinetutors.model.Event;
+import com.example.onlinetutors.model.EventResponseDTO;
 import com.example.onlinetutors.model.Signup;
 import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.service.CourseService;
 import com.example.onlinetutors.service.EmailService;
+import com.example.onlinetutors.service.EventService;
 import com.example.onlinetutors.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,6 +32,7 @@ public class DashboardController {
     private final EmailService emailService;
     private final UserService userService;
     private final CourseService courseService;
+    private final EventService eventService;
 
     @GetMapping("/admin")
     public String getDashboardPage() {
@@ -113,10 +116,6 @@ public class DashboardController {
         return "client/homeTeacher";
     }
 
-    @GetMapping("/schedule")
-    public String getTutorSchedule() {
-        return "client/scheduleTutor";
-    }
     @GetMapping("/forgotPassword")
     public String getForgotPasswordPage() {
         return "admin/forgotPassword";

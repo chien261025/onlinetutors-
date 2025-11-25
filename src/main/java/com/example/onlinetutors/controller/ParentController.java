@@ -4,10 +4,9 @@ import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.model.Role;
 import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.service.CourseService;
-import com.example.onlinetutors.service.MomoService;
+import com.example.onlinetutors.service.OrderService;
 import com.example.onlinetutors.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -28,13 +26,17 @@ import java.util.List;
 public class ParentController {
 
     private final CourseService courseService;
-    private final UserService  userService;
-    private final MomoService momoService;
+    private final UserService userService;
+    private final OrderService orderService;
 
     @GetMapping("/home-parent")
-    public String getHomePage(Model model) {
+    public String getHomePage(Model model,  HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long id = (Long) session.getAttribute("id");
+        List<Course> courses = this.orderService.handleGetCoursesByUser(id);
         log.info("Accessing home page");
         model.addAttribute("role", "PARENT");
+        model.addAttribute("courses", courses);
         return "client/parent/homeParent";
     }
 
@@ -49,7 +51,7 @@ public class ParentController {
                 "SU",
                 "ĐIA",
                 "VAN");
-        if(session == null) {
+        if (session == null) {
             model.addAttribute("subjects", subjects);
             return "client/parent/courseParent";
         }
@@ -109,22 +111,6 @@ public class ParentController {
 
         log.info("Accessing parent details page");
         return "client/parent/courseDetailed";
-    }
-
-    @GetMapping("/payment/momo-qr")
-    public String getBuyCoursePage(@RequestParam("amount") String  amount,
-                                   @RequestParam("note") String note,
-                                      @RequestParam("id") Long id,
-                                      Model model
-                                   ) throws Exception {
-        String paymentUrl = this.momoService.handleMomoPayment(amount, note);
-        String qrBase64 = this.momoService.generateQRCode(paymentUrl);
-        log.info("Accessing buy course page");
-        model.addAttribute("amount", amount);
-        model.addAttribute("note", note);
-        model.addAttribute("qrBase64", qrBase64);
-        model.addAttribute("courseId", id);
-        return "client/parent/buyCourse";
     }
 
 }

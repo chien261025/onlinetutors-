@@ -93,16 +93,13 @@
                     Course list</h6>
                 <table class="table table-striped">
                     <thead>
-<!--                    <tr>-->
-<!--                        <th scope="col">#</th>-->
-<!--                        <th scope="col">First Name</th>-->
-<!--                        <th scope="col">Last Name</th>-->
-<!--                        <th scope="col">Email</th>-->
-<!--                    </tr>-->
+
                     </thead>
                     <tbody>
                     <tr th:each="course : ${courses}">
-                        <td th:text="${course.nameCourse}"></td>
+                        <td><a th:text="${course.nameCourse}" th:href="@{/tutor/course-update(id=${course.id})}">
+
+                        </a></td>
                     </tr>
 
                     </tbody>

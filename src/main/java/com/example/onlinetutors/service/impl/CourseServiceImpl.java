@@ -2,6 +2,7 @@ package com.example.onlinetutors.service.impl;
 
 
 import com.example.onlinetutors.model.Course;
+import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.repository.CourseRepository;
 import com.example.onlinetutors.service.CourseService;
 import com.example.onlinetutors.util.enumclass.StatusCourseEnum;
@@ -50,4 +51,5 @@ public class CourseServiceImpl implements CourseService {
     public Course handleGetCourseById(Long id) {
         return courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
     }
+
 }

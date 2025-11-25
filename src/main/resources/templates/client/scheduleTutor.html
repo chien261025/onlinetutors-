@@ -30,69 +30,122 @@
             background: white;
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 
 </head>
 
 <body>
-<!-- Topbar Start -->
-<div th:replace="fragments/clientHeader :: clientHeader"></div>
-<!-- Topbar End -->
-<div class="container">
-    <h3 class="text-center mt-4 mb-4">📅 Lịch học</h3>
-    <div id="calendar"></div>
-</div>
+    <!-- Topbar Start -->
+    <div th:replace="fragments/clientHeader :: clientHeader"></div>
+    <!-- Topbar End -->
+    <div class="container">
+        <h3 class="text-center mt-4 mb-4">📅 Lịch học</h3>
+        <div id="calendar"></div>
+    </div>
 
-<!-- FullCalendar JS -->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
 
-<!-- Tùy chọn: MomentJS nếu bạn muốn xử lý ngày -->
-<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <!-- Tùy chọn: MomentJS nếu bạn muốn xử lý ngày -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            locale: 'vi', // ngôn ngữ tiếng Việt
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek'
-            },
-            events: '/events', // URL sẽ gọi tới backend để lấy danh sách sự kiện
-            eventColor: '#1E90FF',
-            eventDisplay: 'block'
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            // map string ngày sang số theo FullCalendar (0=Sunday)
+            function parseDaysOfWeek(daysStr) {
+                if (!daysStr) return [];
+                const map = {
+                    "SUNDAY": 0, "MONDAY": 1, "TUESDAY": 2,
+                    "WEDNESDAY": 3, "THURSDAY": 4,
+                    "FRIDAY": 5, "SATURDAY": 6
+                };
+                return daysStr.split(',').map(d => map[d.trim()]);
+            }
+
+            // tính endRecur = startRecur + 7*weeks ngày
+            function calculateEndRecur(startStr, weeks) {
+                if (!startStr || !weeks) return null;
+                let startDate = new Date(startStr);
+                let endDate = new Date(startDate);
+                endDate.setDate(startDate.getDate() + 7 * weeks);
+                return endDate.toISOString().split('T')[0]; // yyyy-mm-dd
+            }
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'vi',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek'
+                },
+                events: function (fetchInfo, successCallback, failureCallback) {
+                    fetch('/events', {
+                        method: 'GET',
+                        credentials: 'include' // gửi session cookie nếu cần
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            let events = data.map(e => {
+
+                                let dow = parseDaysOfWeek(e.daysOfWeek);
+                                let endRecur = calculateEndRecur(e.startRecur, e.weeks);
+
+                                return {
+                                    id: e.id,
+                                    title: e.title,
+                                    daysOfWeek: dow.length ? dow : null,
+                                    startTime: e.startTime,
+                                    endTime: e.endTime,
+                                    startRecur: e.startRecur,
+                                    endRecur: endRecur,
+                                    color: e.color ? e.color : '#1E90FF',
+                                    extendedProps: {
+                                        courseId: e.courseId,
+                                        tutorId: e.tutorId,
+                                        weeks: e.weeks
+                                    }
+                                };
+                            });
+                            successCallback(events);
+                        })
+                        .catch(error => failureCallback(error));
+                },
+                eventDisplay: 'block'
+            });
+
+            calendar.render();
         });
-        calendar.render();
-    });
-</script>
-
-<!-- Footer Start -->
-<div th:replace="fragments/clientFooter :: clientFooter"></div>
-<!-- Footer End -->
+    </script>
 
 
-<!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!-- Footer Start -->
+    <div th:replace="fragments/clientFooter :: clientFooter"></div>
+    <!-- Footer End -->
 
 
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script th:src="@{/client/lib/easing/easing.min.js}"></script>
-<script th:src="@{/client/lib/owlcarousel/owl.carousel.min.js}"></script>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-<!-- Contact Javascript File -->
-<script th:src="@{/client/mail/jqBootstrapValidation.min.js}"></script>
-<script th:src="@{/client/mail/contact.js}"></script>
-<script th:src="@{/client/mail/contact.js}"></script>
 
-<!-- Template Javascript -->
-<script th:src="@{/client/js/main.js}"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/client/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/client/lib/owlcarousel/owl.carousel.min.js}"></script>
+
+    <!-- Contact Javascript File -->
+    <script th:src="@{/client/mail/jqBootstrapValidation.min.js}"></script>
+    <script th:src="@{/client/mail/contact.js}"></script>
+    <script th:src="@{/client/mail/contact.js}"></script>
+
+    <!-- Template Javascript -->
+    <script th:src="@{/client/js/main.js}"></script>
 </body>
 
 </html>

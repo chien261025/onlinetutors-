@@ -66,114 +66,17 @@
             <h1>Khóa học của bạn</h1>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 mb-4" th:each="course : ${courses}">
                 <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid3" th:src="@{/client/img/t3.jpg}" alt="">
+                    <img class="img-fluid" th:src="@{/client/images/{image}(image=${course.imageUrl})}" alt="">
                     <div class="bg-secondary p-4">
                         <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
                         </div>
-                        <a class="h5" href="">Khóa học Toán </a>
-                        <div class="border-top mt-4 pt-4">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
-                                <h5 class="m-0">9.000.000.vnd</h5>
-                            </div>
-                        </div>
+                        <a class="h5" th:href="@{/parent/course-success(id=${course.id})}" th:text="${course.nameCourse}"></a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid20" th:src="@{/client/img/vl1.jpg}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="">Khóa học Vật Lý</a>
-                        <div class="border-top mt-4 pt-4">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
-                                <h5 class="m-0">19.000.000.vnd</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid21" th:src="@{/client/img/nv.jpg}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="">Khóa học Ngữ Văn</a>
-                        <div class="border-top mt-4 pt-4">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
-                                <h5 class="m-0">99.000.000.vnd</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid2" th:src="@{/client/img/ta.jpg}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="">Khóa học Tiếng anh </a>
-                        <div class="border-top mt-4 pt-4">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
-                                <h5 class="m-0">99.000.000.vnd</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid2" th:src="@{/client/img/dl.jpg}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="">Khóa học Địa Lý </a>
-                        <div class="border-top mt-4 pt-4">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
-                                <h5 class="m-0">99.000.000.vnd</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid22" th:src="@{/client/img/ls.jpg}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="">Khóa học Lịch Sử</a>
-                        <div class="border-top mt-4 pt-4">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
-                                <h5 class="m-0">99.000.000.vnd</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

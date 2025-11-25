@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public  class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Value("${spring.sendgrid.verification-link}")
     private String link;
@@ -47,24 +47,17 @@ public  class UserServiceImpl implements UserService {
     private final SignupRepository signupRepository;
     private final VerificationTokensRepository verificationTokensRepository;
     private final EmailService emailService;
-<<<<<<< HEAD
     private final UploadFileService uploadFileService;
-=======
     private final PasswordResetTokenRepository passwordResetTokenRepository;
->>>>>>> 78768b6 (forgot password)
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder,
                            SignupRepository signupRepository,
                            VerificationTokensRepository verificationTokensRepository,
-<<<<<<< HEAD
-                           EmailService emailService,
-                           UploadFileService uploadFileService) {
-=======
+                           UploadFileService uploadFileService,
                            PasswordResetTokenRepository passwordResetTokenRepository,
                            EmailService emailService) {
->>>>>>> 78768b6 (forgot password)
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -74,6 +67,7 @@ public  class UserServiceImpl implements UserService {
         this.emailService = emailService;
         this.uploadFileService = uploadFileService;
     }
+
 
     @Override
     public void handleCreateUser(User user, MultipartFile file) {
@@ -122,10 +116,10 @@ public  class UserServiceImpl implements UserService {
             existingUser.setAddress(user.getAddress());
             existingUser.setRole(this.roleRepository.findByName(user.getRole().getName()));
             existingUser.setStatusUser(user.getStatusUser());
-            if(user.getProfileDescription() != null ) {
+            if (user.getProfileDescription() != null) {
                 existingUser.setProfileDescription(user.getProfileDescription());
             }
-            if(user.getQualification() != null ) {
+            if (user.getQualification() != null) {
                 existingUser.setQualification(user.getQualification());
             }
             this.userRepository.save(existingUser);
@@ -160,7 +154,7 @@ public  class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void signupUser(Signup signup) {
-        if (userRepository.existsByEmail(signup.getEmail())){
+        if (userRepository.existsByEmail(signup.getEmail())) {
             log.error("Email already in use: {}", signup.getEmail());
             throw new RuntimeException("Email is already in use");
         }
@@ -208,13 +202,13 @@ public  class UserServiceImpl implements UserService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<User> getUsersByRoleId(Long id) {
         return this.userRepository.findByRole_Id(id);
-=======
+    }
+
     public void sendResetLink(String email) {
         User user = getUserByEmail(email);
-        if(user == null){
+        if (user == null) {
             log.error("User with email: {} not found for password reset", email);
             throw new RuntimeException("User not found");
         }
@@ -224,8 +218,7 @@ public  class UserServiceImpl implements UserService {
         passwordResetTokenRepository.save(passwordResetToken);
         // tạo link reset
         String resetLink = linkResetPassword + "?resetToken=" + token;
-        emailService.emailResetPassword(email, user.getName(),resetLink, resetTemplateId);
->>>>>>> 78768b6 (forgot password)
+        emailService.emailResetPassword(email, user.getName(), resetLink, resetTemplateId);
     }
 
     @Override
@@ -247,3 +240,4 @@ public  class UserServiceImpl implements UserService {
         log.info("Password reset successfully for user: {}", user.getEmail());
     }
 }
+

@@ -1,18 +1,19 @@
 package com.example.onlinetutors.model;
 
 import com.example.onlinetutors.util.enumclass.StatusCourseEnum;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "courses")
@@ -46,6 +47,10 @@ public class Course extends AbstractEntity  {
     @Column(name = "subject")
     private String subject;
 
-    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
-    private List<User> users = new ArrayList<>();
+    @OneToMany(mappedBy = "course")
+    private List<Order> order;
+
+    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL)
+    private Event event;
+
 }
