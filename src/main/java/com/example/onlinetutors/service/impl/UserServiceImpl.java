@@ -9,8 +9,6 @@ import com.example.onlinetutors.repository.RoleRepository;
 import com.example.onlinetutors.repository.SignupRepository;
 import com.example.onlinetutors.repository.UserRepository;
 import com.example.onlinetutors.repository.VerificationTokensRepository;
-import com.example.onlinetutors.service.EmailService;
-import com.example.onlinetutors.service.UploadFileService;
 import com.example.onlinetutors.service.UserService;
 import com.example.onlinetutors.util.enumclass.StatusUserEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.beans.Transient;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +44,7 @@ public class UserServiceImpl implements UserService {
     private final SignupRepository signupRepository;
     private final VerificationTokensRepository verificationTokensRepository;
     private final EmailService emailService;
-    private final UploadFileService uploadFileService;
+    private final FileService uploadFileService;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
 
     public UserServiceImpl(UserRepository userRepository,
@@ -55,7 +52,7 @@ public class UserServiceImpl implements UserService {
                            PasswordEncoder passwordEncoder,
                            SignupRepository signupRepository,
                            VerificationTokensRepository verificationTokensRepository,
-                           UploadFileService uploadFileService,
+                           FileService uploadFileService,
                            PasswordResetTokenRepository passwordResetTokenRepository,
                            EmailService emailService) {
         this.userRepository = userRepository;

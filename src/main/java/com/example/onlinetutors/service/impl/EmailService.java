@@ -1,4 +1,4 @@
-package com.example.onlinetutors.service;
+package com.example.onlinetutors.service.impl;
 
 import com.sendgrid.Request;
 import com.sendgrid.Response;

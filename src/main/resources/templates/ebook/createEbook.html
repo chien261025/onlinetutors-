@@ -29,30 +29,45 @@
 <!-- Topbar Start -->
 <div th:replace="~{fragments/clientHeader :: clientHeader}"></div>
 <!-- Topbar End -->
+<!-- Navbar Start -->
+<div th:replace="~{fragments/clientSidebar :: clientSidebar}"></div>
+<!-- Navbar End -->
 
-<!-- Category Start -->
-<div class="container-fluid py-5">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-5">
-            <h1>MY COURSE</h1>
+<div class="container">
+    <h2 class="mb-4">Thêm Ebook mới</h2>
+
+    <form th:action="@{/ebooks/create}" method="post" th:object="${ebook}" enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label for="imageEbook" class="form-label">hình ảnh</label>
+            <input type="file" class="form-control" name="imageEbookFile" id="imageEbook" accept="" required>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" th:each="course : ${courses}">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid" th:src="@{'/client/images/' + ${course.imageUrl}}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Students</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="" th:text="${course.nameCourse}"></a>
-                    </div>
-                </div>
-            </div>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Tiêu đề </label>
+            <input type="text" class="form-control"  th:field="*{title}" id="title">
         </div>
-    </div>
+        <div class="mb-3">
+            <label
+                    for="author" class="form-label">Tên tác giả của Ebook</label>
+            <input type="text" class="form-control"  th:field="*{author}" id="author" required>
+        </div>
+        <div class="mb-3">
+            <label for="isbn" class="form-label">Mã isbn(Nếu có)</label>
+            <input type="text" class="form-control"  th:field="*{isbn}" min="1" id="isbn" >
+        </div>
+
+        <div class="mb-3">
+            <label for="downloadLink" class="form-label">Tải lên file</label>
+            <input type="file" class="form-control" name="linkDownloadFile" id="downloadLink" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Thêm mới</button>
+
+    </form>
 </div>
-<!-- Category Start -->
+
+
 
 <!-- Footer Start -->
 <div th:replace="~{fragments/clientFooter :: clientFooter}"></div>

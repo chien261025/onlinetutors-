@@ -27,10 +27,10 @@
 
 <body>
 <!-- Topbar Start -->
-<div th:replace="fragments/clientHeader :: clientHeader"></div>
+<div th:replace="~{fragments/clientHeader :: clientHeader}"></div>
 <!-- Topbar End -->
 
-<div th:replace="fragments/clientSidebar :: clientSidebar"></div>
+<div th:replace="~{fragments/clientSidebar :: clientSidebar}"></div>
 <div class="container-fluid py-5">
     <div class="container py-5">
         <div class="row">
@@ -127,7 +127,7 @@
 </div>
 
 <!-- Footer Start -->
-<div th:replace="fragments/clientFooter :: clientFooter"></div>
+<div th:replace="~{fragments/clientFooter :: clientFooter}"></div>
 <!-- Footer End -->
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>

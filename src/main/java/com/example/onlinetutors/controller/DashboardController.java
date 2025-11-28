@@ -2,12 +2,10 @@ package com.example.onlinetutors.controller;
 
 import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.model.Email;
-import com.example.onlinetutors.model.Event;
-import com.example.onlinetutors.model.EventResponseDTO;
 import com.example.onlinetutors.model.Signup;
 import com.example.onlinetutors.model.User;
 import com.example.onlinetutors.service.CourseService;
-import com.example.onlinetutors.service.EmailService;
+import com.example.onlinetutors.service.impl.EmailService;
 import com.example.onlinetutors.service.EventService;
 import com.example.onlinetutors.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;

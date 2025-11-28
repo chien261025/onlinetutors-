@@ -2,7 +2,7 @@ package com.example.onlinetutors.controller;
 
 import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.service.CourseService;
-import com.example.onlinetutors.service.UploadFileService;
+import com.example.onlinetutors.service.impl.FileService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class CourseController {
 
     private final CourseService courseService;
-    private final UploadFileService uploadFileService;
+    private final FileService uploadFileService;
 
     @GetMapping("/tutor/profile/create-course")
     public String getCreateCourse(Model model) {

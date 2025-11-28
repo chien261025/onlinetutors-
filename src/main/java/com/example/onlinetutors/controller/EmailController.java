@@ -1,7 +1,7 @@
 package com.example.onlinetutors.controller;
 
 import com.example.onlinetutors.model.Email;
-import com.example.onlinetutors.service.EmailService;
+import com.example.onlinetutors.service.impl.EmailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
