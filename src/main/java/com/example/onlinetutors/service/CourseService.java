@@ -13,5 +13,6 @@ public interface CourseService {
     List<Course> handleGetCoursesBySubject(String subject);
     List<Course> handleGetAllCourses();
     Course handleGetCourseById(Long id);
+    void handleDeleteCourseById(Long id);
 
 }

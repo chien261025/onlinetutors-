@@ -65,4 +65,6 @@ public class User extends AbstractEntity {
     @OneToMany(mappedBy = "user")
     private List<UserEbook> userEbook;
 
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 }

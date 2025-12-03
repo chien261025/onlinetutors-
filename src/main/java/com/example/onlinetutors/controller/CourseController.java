@@ -1,7 +1,9 @@
 package com.example.onlinetutors.controller;
 
 import com.example.onlinetutors.model.Course;
+import com.example.onlinetutors.model.Event;
 import com.example.onlinetutors.service.CourseService;
+import com.example.onlinetutors.service.EventService;
 import com.example.onlinetutors.service.impl.FileService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class CourseController {
 
     private final CourseService courseService;
     private final FileService uploadFileService;
+    private final EventService eventService;
 
     @GetMapping("/tutor/profile/create-course")
     public String getCreateCourse(Model model) {
@@ -45,4 +50,31 @@ public class CourseController {
         this.courseService.handleCreateCourse(course);
         return "redirect:/tutor/profile";
     }
+
+    @GetMapping("admin/courses")
+    public String getAdminCoursesPage(Model model) {
+        List<Course> courses = this.courseService.handleGetAllCourses();
+        model.addAttribute("courses", courses);
+        return "admin/course/adminCoursePage";
+    }
+
+    @PostMapping("admin/course/delete")
+    public String postDeleteCourse(@RequestParam("id") Long id) {
+        this.courseService.handleDeleteCourseById(id);
+        return "redirect:/admin/courses";
+    }
+
+    @GetMapping("admin/course/edit")
+    public String getEditCoursePage(Model model, @RequestParam("id") Long id) {
+        Course course = this.courseService.handleGetCourseById(id);
+        if (course == null) {
+            log.info("Course not found with id: {}", id);
+            return "redirect:/admin/courses";
+        }
+        Event eventByCourse = this.eventService.getEventByCourseId(course);
+        model.addAttribute("event", eventByCourse);
+        model.addAttribute("course", course);
+        return "admin/course/adminCourseEdit";
+    }
+
 }

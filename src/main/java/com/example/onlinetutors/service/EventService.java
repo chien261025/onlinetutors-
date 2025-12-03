@@ -1,6 +1,7 @@
 package com.example.onlinetutors.service;
 
 
+import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.model.Event;
 import com.example.onlinetutors.model.User;
 import org.springframework.stereotype.Service;
@@ -18,4 +19,6 @@ public interface EventService {
     List<Event> getEventsByUserId(Long userId);
 
     List<Event> handleGetEventsByCourseId(Long courseId);
+
+    Event getEventByCourseId(Course course);
 }

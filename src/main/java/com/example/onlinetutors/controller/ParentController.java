@@ -1,8 +1,10 @@
 package com.example.onlinetutors.controller;
 
+import com.example.onlinetutors.model.Comment;
 import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.model.Role;
 import com.example.onlinetutors.model.User;
+import com.example.onlinetutors.service.CommentService;
 import com.example.onlinetutors.service.CourseService;
 import com.example.onlinetutors.service.OrderService;
 import com.example.onlinetutors.service.UserService;
@@ -28,6 +30,7 @@ public class ParentController {
     private final CourseService courseService;
     private final UserService userService;
     private final OrderService orderService;
+    private final CommentService commentService;
 
     @GetMapping("/home-parent")
     public String getHomePage(Model model,  HttpServletRequest request) {
@@ -102,9 +105,20 @@ public class ParentController {
     }
 
     @GetMapping("/parent/details")
-    public String getParentDetailsPage(Model model, @RequestParam("id") Long id) {
+    public String getParentDetailsPage(Model model,
+                                       @RequestParam("id") Long id,
+                                       HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            model.addAttribute("authorization", "authorization");
+        }
         Course course = this.courseService.handleGetCourseById(id);
         User author = this.userService.getUserByEmail(course.getAuthor());
+        List<Comment> comments = this.commentService.getCommentsByCourseId(id);
+        if (comments != null) {
+            model.addAttribute("comments", comments);
+        }
+
         model.addAttribute("course", course);
         model.addAttribute("author", author);
         model.addAttribute("note", "Thanh toán hóa đơn");

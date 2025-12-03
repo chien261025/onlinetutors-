@@ -55,4 +55,7 @@ public class Course extends AbstractEntity  {
     @OneToOne(mappedBy = "course", cascade = CascadeType.ALL)
     private Event event;
 
+    @OneToMany(mappedBy = "course")
+    private List<Comment> comments;
+
 }

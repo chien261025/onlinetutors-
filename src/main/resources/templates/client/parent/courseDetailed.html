@@ -87,6 +87,25 @@
                                 <p class="text-dark text-justify" th:text="${course.descriptionCourse}">
                                 </p>
                             </div>
+                            <div class="mb-5 bg-white border rounded p-4 shadow-sm">
+                                <h5>Comments</h5>
+                                <div th:each="comment : ${comments}">
+                                    <p><b th:text="${comment.user.name}"></b>: <span th:text="${comment.content}"></span></p>
+                                    <small th:text="${#dates.format(comment.createdAt, 'dd/MM/yyyy HH:mm')}"></small>
+                                </div>
+
+                                <div th:unless="${authorization != null}">
+                                    <form th:action="@{/course/{id}/comment(id=${course.id})}" method="post">
+                                        <label for="content">Viết bình luận..." </label>
+                                        <textarea name="content" id="content" class="form-control" placeholder="Viết bình luận..."></textarea>
+                                        <button type="submit" class="btn btn-primary mt-2">Bình luận</button>
+                                    </form>
+                                </div>
+
+                                <div th:if="${authorization != null}">
+                                    <p>Bạn cần <a href="/login">đăng nhập</a> để bình luận.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

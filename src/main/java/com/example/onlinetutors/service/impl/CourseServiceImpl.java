@@ -52,4 +52,16 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
     }
 
+    @Override
+    public void handleDeleteCourseById(Long id) {
+        Course course = this.handleGetCourseById(id);
+        if (course != null) {
+            course.setStatusCourse(StatusCourseEnum.INACTIVE);
+            this.courseRepository.save(course);
+            log.info("Course with id {} marked as INACTIVE.", id);
+        } else {
+            log.warn("Course with id {} not found. Deletion skipped.", id);
+        }
+    }
+
 }

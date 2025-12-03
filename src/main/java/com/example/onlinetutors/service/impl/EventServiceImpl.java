@@ -1,5 +1,6 @@
 package com.example.onlinetutors.service.impl;
 
+import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.model.Event;
 import com.example.onlinetutors.model.UserEvent;
 import com.example.onlinetutors.repository.EventRepository;
@@ -46,5 +47,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> handleGetEventsByCourseId(Long courseId) {
         return this.eventRepository.findByCourse_Id(courseId);
+    }
+
+    @Override
+    public Event getEventByCourseId(Course course) {
+       return this.eventRepository.findEventByCourse(course);
     }
 }
