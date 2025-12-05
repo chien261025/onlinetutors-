@@ -134,7 +134,7 @@ public class DashboardController {
     @GetMapping("/reset-password")
     public String getResetPasswordPage(@RequestParam("resetToken") String resetToken, Model model) {
         model.addAttribute("token", resetToken);
-        return "admin/resetPassword";
+        return "resetPassword";
     }
 
     @PostMapping("confirm-password")

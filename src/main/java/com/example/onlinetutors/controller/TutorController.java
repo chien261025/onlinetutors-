@@ -83,5 +83,13 @@ public class TutorController {
         return "client/tutor/updateCourseTutor";
     }
 
+    @GetMapping("/tutor/detailed")
+    public String getTutorDetailedPage(@RequestParam("id") Long tutorId,
+                                       Model model
+                                       ) {
+        User tutor = this.userService.getUserById(tutorId);
+        model.addAttribute("tutor", tutor);
+        return "client/tutor/tutorDetailed";
+    }
 
 }

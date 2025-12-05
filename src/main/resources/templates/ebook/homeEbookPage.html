@@ -23,51 +23,70 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/client/css/style.css}" rel="stylesheet">
+    <style>
+        /* CSS chỉnh sửa nhỏ để thẻ đẹp hơn */
+        .hover-primary:hover { color: #FF6600 !important; }
+        .text-primary { color: #FF6600 !important; }
+        .bg-primary { background-color: #FF6600 !important; }
+        .btn-primary { background-color: #FF6600; border-color: #FF6600; color: #fff; }
+        .btn-primary:hover { background-color: #e65c00; border-color: #e65c00; }
+        .pagination .page-item.active .page-link { background-color: #FF6600; border-color: #FF6600; }
+        .pagination .page-link { color: #FF6600; }
+    </style>
 </head>
 
 <body>
 <!-- Topbar Start -->
 <div th:replace="~{fragments/clientHeader :: clientHeader}"></div>
 <!-- Topbar End -->
+
+
 <!-- Navbar Start -->
 <div th:replace="~{fragments/clientSidebar :: clientSidebar}"></div>
 <!-- Navbar End -->
 
-<div class="col-12">
-    <div class="bg-light rounded h-100 p-4">
-        <h6 class="mb-4">Responsive Table</h6>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Mã isbn</th>
-                    <th scope="col">Link Download</th>
-                    <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="ebook : ${ebooks}">
-                    <td th:text="${ebook.title}"></td>
-                    <td th:text="${ebook.author}"></td>
-                    <td th:text="${ebook.isbn}"></td>
-                    <td th:text="${ebook.downloadLink}"></td>
-                    <td>
-                        <a th:href="@{/ebook/download/{id}(id=${ebook.id})}" class="btn btn-sm btn-primary">Tải xuống Ebook</a>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-<!--            <a th:href="@{/ebook/download/{id}(id=${ebook.id})}"-->
-<!--               class="btn btn-success">-->
-<!--                Tải xuống Ebook-->
-<!--            </a>-->
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-4">
+                    <h2 class="text-primary font-weight-bold">Một số ebook miễn phí</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12" th:each="ebook : ${ebooks}">
+                    <div class="card border-0 shadow-sm rounded overflow-hidden h-100">
+                        <div class="row no-gutters h-100">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="h-100 bg-light d-flex align-items-center justify-content-center position-relative overflow-hidden" style="min-height: 220px;">
+                                    <img                              th:src="@{'/ebook/images/' + ${ebook.imageEbook}}"
+                                                                      class="w-100 h-100" style="object-fit: cover; position: absolute;" alt="Course Image">
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="card-body p-4 d-flex flex-column h-100">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h4 class="font-weight-bold mb-2">
+                                            <a href="#" class="text-dark text-decoration-none hover-primary" th:text="${ebook.title}"></a>
+                                        </h4>
+                                    </div>
+                                    <div class="mb-3">
+                                        <small class="text-muted mr-3" th:text="${ebook.author}"><i class="fa fa-user mr-1"></i></small>
+                                    </div>
+                                        <a th:href="@{/ebook/download/{id}(id=${ebook.id})}" class="btn btn-primary py-2 px-4 rounded">tải xuống</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 
 <!-- Footer Start -->
 <div th:replace="~{fragments/clientFooter :: clientFooter}"></div>

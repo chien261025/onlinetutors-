@@ -74,8 +74,10 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedule")
-    public String getTutorSchedule(Model model) {
-        model.addAttribute("role", "TUTOR");
+    public String getTutorSchedule(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String role = (String) session.getAttribute("role");
+        model.addAttribute("role", role);
         return "client/scheduleTutor";
     }
 }

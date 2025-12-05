@@ -47,9 +47,16 @@ public class EbookController {
     }
 
     @GetMapping("/home-ebook")
-    public String getHomeEbookPage(Model model) {
-        log.info("Accessing home ebook page");
+    public String getHomeEbookPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
         List<Ebook> ebooks = this.ebookService.handleGetAllEbooks();
+        if(session == null) {
+            model.addAttribute("ebooks", ebooks);
+            return "ebook/homeEbookPage";
+        }
+        String roleName = (String) session.getAttribute("role");
+        model.addAttribute("role", roleName);
+        log.info("Accessing home ebook page");
         model.addAttribute("ebooks", ebooks);
         return "ebook/homeEbookPage";
     }

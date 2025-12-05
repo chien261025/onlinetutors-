@@ -30,36 +30,50 @@
 <div th:replace="~{fragments/clientHeader :: clientHeader}"></div>
 <!-- Topbar End -->
 
-<!-- Courses Start -->
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Khóa học</h5>
-            <h1>Khóa học phổ biến của chúng tôi</h1>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" th:each="course : ${courses}">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid3" th:src="@{'/client/images/' + ${course.imageUrl}}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="" th:text="${course.nameCourse}"></a>
-                        <div class="border-top mt-4 pt-4">
-                            <div class="d-flex justify-content-between">
-                                <a th:href="@{/parent/details(id=${course.id})}" type="button" class="btn btn-outline-primary m-2">Primary</a>
-                                <h5 class="m-0">9.000.000.vnd</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Navbar Start -->
+<div th:replace="~{fragments/clientSidebar :: clientSidebar}"></div>
+<!-- Navbar End -->
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Booking</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name Parent </th>
+                    <th scope="col">bookingDate</th>
+                    <th scope="col">startTime</th>
+                    <th scope="col">endTime</th>
+                    <th scope="col">note</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="booking : ${bookings}">
+                    <td th:text="${booking.parent.name}"></td>
+                    <td th:text="${booking.bookingDate}"></td>
+                    <td th:text="${booking.startTime}"></td>
+                    <td th:text="${booking.endTime}"></td>
+                    <td th:text="${booking.notes}"></td>
+                    <td th:text="${booking.statusBooking}"></td>
+                    <td>
+                        <form th:action="@{/booking/status/success}" method="post" style="display:inline;">
+                            <input type="hidden" name="id" th:value="${booking.id}">
+                            <button class="btn btn-sm btn-primary" type="submit">Xác nhận</button>
+                        </form>
+                        <form th:action="@{/booking/status/cancel}" method="post" style="display:inline;">
+                            <input type="hidden" name="id" th:value="${booking.id}">
+                            <button class="btn btn-sm btn-danger" type="submit">hủy</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<!-- Courses End -->
+
 
 
 <!-- Footer Start -->

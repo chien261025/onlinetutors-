@@ -2,7 +2,9 @@ package com.example.onlinetutors.service.impl;
 
 import com.example.onlinetutors.model.Course;
 import com.example.onlinetutors.model.Event;
+import com.example.onlinetutors.model.EventBooking;
 import com.example.onlinetutors.model.UserEvent;
+import com.example.onlinetutors.repository.EventBookingRepository;
 import com.example.onlinetutors.repository.EventRepository;
 import com.example.onlinetutors.repository.UserEventRepository;
 import com.example.onlinetutors.service.EventService;
@@ -19,6 +21,7 @@ public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final UserEventRepository userEventRepository;
+    private final EventBookingRepository eventBookingRepository;
 
     @Override
     public List<Event> getAllEvents() {
@@ -52,5 +55,15 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event getEventByCourseId(Course course) {
        return this.eventRepository.findEventByCourse(course);
+    }
+
+    @Override
+    public List<EventBooking> getEventBookingsByTutorId(Long tutorId) {
+        return this.eventBookingRepository.findByTutorId(tutorId);
+    }
+
+    @Override
+    public List<EventBooking> getEventBookingsByParentId(Long parentId) {
+        return this.eventBookingRepository.findByParentId(parentId);
     }
 }

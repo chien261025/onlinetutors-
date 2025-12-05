@@ -41,7 +41,6 @@
     <div th:replace="~{fragments/clientHeader :: clientHeader}"></div>
     <!-- Topbar End -->
     <div class="container">
-        <h3 class="text-center mt-4 mb-4">📅 Lịch học</h3>
         <div id="calendar"></div>
     </div>
 
@@ -50,12 +49,11 @@
 
     <!-- Tùy chọn: MomentJS nếu bạn muốn xử lý ngày -->
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             var calendarEl = document.getElementById('calendar');
 
-            // map string ngày sang số theo FullCalendar (0=Sunday)
             function parseDaysOfWeek(daysStr) {
                 if (!daysStr) return [];
                 const map = {
@@ -66,13 +64,12 @@
                 return daysStr.split(',').map(d => map[d.trim()]);
             }
 
-            // tính endRecur = startRecur + 7*weeks ngày
             function calculateEndRecur(startStr, weeks) {
                 if (!startStr || !weeks) return null;
                 let startDate = new Date(startStr);
                 let endDate = new Date(startDate);
                 endDate.setDate(startDate.getDate() + 7 * weeks);
-                return endDate.toISOString().split('T')[0]; // yyyy-mm-dd
+                return endDate.toISOString().split('T')[0];
             }
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -83,44 +80,67 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek'
                 },
+
                 events: function (fetchInfo, successCallback, failureCallback) {
-                    fetch('/events', {
-                        method: 'GET',
-                        credentials: 'include' // gửi session cookie nếu cần
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            let events = data.map(e => {
+                    Promise.all([
+                        fetch('/events').then(r => r.json()).catch(() => []),
+                        fetch('/eventBookings').then(r => r.json()).catch(() => [])
+                    ])
+                        .then(([courseEvents, bookingEvents]) => {
 
-                                let dow = parseDaysOfWeek(e.daysOfWeek);
-                                let endRecur = calculateEndRecur(e.startRecur, e.weeks);
+                            // -----------------------------
+                            // Lịch khóa học (recuring)
+                            // -----------------------------
+                            const convertedCourses = (courseEvents || []).map(e => ({
+                                id: e.id,
+                                title: e.title,
+                                daysOfWeek: parseDaysOfWeek(e.daysOfWeek),
+                                startTime: e.startTime,
+                                endTime: e.endTime,
+                                startRecur: e.startRecur,
+                                endRecur: calculateEndRecur(e.startRecur, e.weeks),
+                                color: e.color ? e.color : '#1E90FF',
+                                extendedProps: {
+                                    courseId: e.courseId,
+                                    tutorId: e.tutorId,
+                                    weeks: e.weeks
+                                }
+                            }));
 
-                                return {
-                                    id: e.id,
-                                    title: e.title,
-                                    daysOfWeek: dow.length ? dow : null,
-                                    startTime: e.startTime,
-                                    endTime: e.endTime,
-                                    startRecur: e.startRecur,
-                                    endRecur: endRecur,
-                                    color: e.color ? e.color : '#1E90FF',
-                                    extendedProps: {
-                                        courseId: e.courseId,
-                                        tutorId: e.tutorId,
-                                        weeks: e.weeks
-                                    }
-                                };
-                            });
-                            successCallback(events);
+                            // -----------------------------
+                            // Lịch dạy riêng (ngày thật)
+                            // -----------------------------
+                            const convertedBookings = (bookingEvents || []).map(e => ({
+                                id: e.id,
+                                title: "Lịch dạy riêng",
+                                start: `${e.daysOfWeek}T${e.startTime}`,
+                                end: `${e.daysOfWeek}T${e.endTime}`,
+                                color: '#FF0000',
+                                extendedProps: {
+                                    tutorId: e.tutorId,
+                                    parentId: e.parentId
+                                }
+                            }));
+
+                            // Gộp tất cả
+                            const allEvents = [...convertedCourses, ...convertedBookings];
+
+                            successCallback(allEvents);
                         })
                         .catch(error => failureCallback(error));
                 },
+
                 eventDisplay: 'block'
             });
 
             calendar.render();
         });
     </script>
+
+
+
+
+
 
 
     <!-- Footer Start -->

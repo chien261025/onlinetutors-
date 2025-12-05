@@ -28,7 +28,9 @@ public class SecurityConfiguration {
 
     private static final String[] WHITELISTED_URLS = {"/login", "/css/**", "/js/**", "/",
             "/parent/courses/details", "/parent/courses", "/teacher", "/parent/details",
-            "/adminImg/images/**", "/home-ebook",
+            "/adminImg/images/**", "/home-ebook", "/tutor/detailed", "/forgotPassword",
+            "/confirm-email", "/find-email",  "/confirm-password", "/reset-password",
+            "/ebook/images/**", "/adminImg/images/**",
             "/client/**", "/uploads/**", "/signup", "/error"};
 
     @Bean

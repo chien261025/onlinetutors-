@@ -66,9 +66,9 @@ public class ParentController {
     }
 
     @GetMapping("/parent/courses/details")
-    public String getCoursesDetailsPage(Model model, @RequestParam("id") Long id) {
-        Course course = this.courseService.handleGetCourseById(id);
-        model.addAttribute("course", course);
+    public String getCoursesDetailsPage(Model model, @RequestParam("id") String id) {
+        List<Course> courses = this.courseService.handleGetCoursesBySubject(id);
+        model.addAttribute("courses", courses);
         log.info("Accessing course details page");
         return "client/parent/listCourse";
     }

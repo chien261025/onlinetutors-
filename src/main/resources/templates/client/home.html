@@ -337,18 +337,18 @@
                         </div>
                     </div>
                     <div class="bg-secondary p-4">
-                        <h5 th:text="${tutor.name}"></h5>
+                        <a th:href="@{/tutor/detailed(id=${tutor.id})}" ><h5 th:text="${tutor.name}"></h5></a>
                         <p class="m-0"
                            th:text="${tutor.profileDescription}"></p>
                     </div>
                 </div>
             </div>
         </div>
-        <button type="button"
+        <a th:href="@{teacher}" type="button"
                 class="btn btn-lg btn-primary m-2 text-center mb-5">
             Xem
             thêm..
-        </button>
+        </a>
     </div>
 </div>
 <!-- Team End -->
@@ -399,10 +399,8 @@
                            th:text="${course.nameCourse}"></a>
                         <div class="border-top mt-4 pt-4">
                             <div class="d-flex justify-content-between">
-                                <button type="button"
-                                        class="btn btn-primary rounded-pill m-2">
-                                    Primary
-                                </button>
+                                <a th:href="@{/parent/details(id=${course.id})}" type="button" class="btn btn-outline-primary m-2">Primary</a>
+
                                 <h5 class="m-0"
                                     th:text="${course.priceCourse != null ? #numbers.formatDecimal(course.priceCourse, 0, 'COMMA', 0, 'POINT') + '₫' : '0₫'}">
                                 </h5>
@@ -547,59 +545,6 @@
     </div>
 </div>
 <!-- Registration End -->
-
-<!-- Testimonial Start -->
-<!-- bình luận học viên -->
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h5 class="text-primary text-uppercase mb-3"
-                style="letter-spacing: 5px;">
-                Cảm
-                nhận
-                học
-                viên</h5>
-            <h1>
-                Học
-                viên
-                nói
-                gì
-                về
-                chúng
-                tôi</h1>
-        </div>
-        <!-- này để có làm comment thì bật lại  -->
-        <!-- <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="owl-carousel testimonial-carousel">
-                    <div class="text-center">
-                        <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                        <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
-                        <img class="img-fluid mx-auto mb-3" src="img/testimonial-1.jpg" alt="">
-                        <h5 class="m-0">Client Name</h5>
-                        <span>Profession</span>
-                    </div>
-                    <div class="text-center">
-                        <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                        <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
-                        <img class="img-fluid mx-auto mb-3" src="img/testimonial-2.jpg" alt="">
-                        <h5 class="m-0">Client Name</h5>
-                        <span>Profession</span>
-                    </div>
-                    <div class="text-center">
-                        <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                        <h4 class="font-weight-normal mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</h4>
-                        <img class="img-fluid mx-auto mb-3" src="img/testimonial-3.jpg" alt="">
-                        <h5 class="m-0">Client Name</h5>
-                        <span>Profession</span>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-    </div>
-</div>
-<!-- Testimonial End -->
-
 
 <!-- Footer Start -->
 <div th:replace="~{fragments/clientFooter :: clientFooter}"></div>

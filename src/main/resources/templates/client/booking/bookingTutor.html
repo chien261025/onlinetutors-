@@ -30,36 +30,41 @@
 <div th:replace="~{fragments/clientHeader :: clientHeader}"></div>
 <!-- Topbar End -->
 
-<!-- Courses Start -->
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Khóa học</h5>
-            <h1>Khóa học phổ biến của chúng tôi</h1>
+
+<!-- Navbar Start -->
+<div th:replace="~{fragments/clientSidebar :: clientSidebar}"></div>
+<!-- Navbar End -->
+
+<div class="container">
+
+    <h2 class="mb-4">Đặt lịch học riêng</h2>
+    <div th:text="${errorMessage}"></div>
+    <form th:action="@{/booking/create}" method="post">
+        <input type="hidden" name="teacherId" th:value="${tutorId}" />
+        <input type="hidden" name="studentId" th:value="${parentId}" />
+
+
+        <div>
+            <label for="bookingDate">Ngày học:</label>
+            <input type="date" name="bookingDate" id="bookingDate" required />
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" th:each="course : ${courses}">
-                <div class="rounded overflow-hidden mb-2">
-                    <img class="img-fluid3" th:src="@{'/client/images/' + ${course.imageUrl}}" alt="">
-                    <div class="bg-secondary p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Học sinh</small>
-                            <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
-                        </div>
-                        <a class="h5" href="" th:text="${course.nameCourse}"></a>
-                        <div class="border-top mt-4 pt-4">
-                            <div class="d-flex justify-content-between">
-                                <a th:href="@{/parent/details(id=${course.id})}" type="button" class="btn btn-outline-primary m-2">Primary</a>
-                                <h5 class="m-0">9.000.000.vnd</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="mb-3">
+            <label for="startTime">Giờ bắt đầu:</label>
+            <input type="time" name="startTime" id="startTime" required />
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="endTime">Giờ kết thúc:</label>
+            <input type="time" name="endTime" id="endTime" required />
+        </div>
+        <div class="mb-3">
+            <label for="note">Ghi chú:</label>
+            <textarea name="note" id="note"></textarea>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Đặt lịch</button>
+        </div>
+    </form>
 </div>
-<!-- Courses End -->
 
 
 <!-- Footer Start -->
