@@ -8,6 +8,8 @@ import java.util.List;
 
 @Repository
 public interface EventBookingRepository extends JpaRepository<EventBooking, Long> {
+
     List<EventBooking> findByTutorId(Long tutorId);
+
     List<EventBooking> findByParentId(Long parentId);
 }

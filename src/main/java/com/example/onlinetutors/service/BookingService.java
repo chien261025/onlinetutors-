@@ -18,6 +18,7 @@ public interface BookingService {
                               LocalTime start, LocalTime end);
 
     List<Booking> getBookingsByTutorId(Long tutorId);
+
     List<Booking> getBookingsByParentId(Long parentId);
 
     void updateBookingStatus(Long bookingId, StatusBookingEnum status);

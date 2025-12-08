@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
+
     List<Booking> findByTutorIdAndStatusBooking(Long tutorId, StatusBookingEnum statusBooking);
 
     List<Booking> findByParentIdAndStatusBooking(Long parentId, StatusBookingEnum statusBooking);

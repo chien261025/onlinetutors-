@@ -52,7 +52,7 @@ public class DashboardController {
     @GetMapping("/signup")
     public String getSignupPage(Model model) {
         model.addAttribute("newSignUp", new Signup());
-        return "admin/Signup";
+        return "admin/signup";
     }
 
     @PostMapping("/signup")

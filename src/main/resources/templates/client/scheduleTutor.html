@@ -82,47 +82,40 @@
                 },
 
                 events: function (fetchInfo, successCallback, failureCallback) {
+
                     Promise.all([
                         fetch('/events').then(r => r.json()).catch(() => []),
                         fetch('/eventBookings').then(r => r.json()).catch(() => [])
                     ])
                         .then(([courseEvents, bookingEvents]) => {
 
-                            // -----------------------------
-                            // Lịch khóa học (recuring)
-                            // -----------------------------
+                            // =========================================================
+                            // 1) Lịch khóa học (recurring)
+                            // =========================================================
                             const convertedCourses = (courseEvents || []).map(e => ({
-                                id: e.id,
+                                id: `course-${e.id}`,
                                 title: e.title,
                                 daysOfWeek: parseDaysOfWeek(e.daysOfWeek),
                                 startTime: e.startTime,
                                 endTime: e.endTime,
                                 startRecur: e.startRecur,
                                 endRecur: calculateEndRecur(e.startRecur, e.weeks),
-                                color: e.color ? e.color : '#1E90FF',
-                                extendedProps: {
-                                    courseId: e.courseId,
-                                    tutorId: e.tutorId,
-                                    weeks: e.weeks
-                                }
+                                color: e.color || '#1E90FF',
                             }));
 
-                            // -----------------------------
-                            // Lịch dạy riêng (ngày thật)
-                            // -----------------------------
+                            // =========================================================
+                            // 2) Lịch dạy riêng (Single-day events)
+                            //    FullCalendar yêu cầu start phải là: "YYYY-MM-DDTHH:mm"
+                            // =========================================================
                             const convertedBookings = (bookingEvents || []).map(e => ({
-                                id: e.id,
+                                id: `booking-${e.id}`,
                                 title: "Lịch dạy riêng",
-                                start: `${e.daysOfWeek}T${e.startTime}`,
-                                end: `${e.daysOfWeek}T${e.endTime}`,
+                                start: `${e.day}T${e.startTime}`,
+                                end: `${e.day}T${e.endTime}`,
                                 color: '#FF0000',
-                                extendedProps: {
-                                    tutorId: e.tutorId,
-                                    parentId: e.parentId
-                                }
                             }));
 
-                            // Gộp tất cả
+                            // Gộp 2 loại event lại
                             const allEvents = [...convertedCourses, ...convertedBookings];
 
                             successCallback(allEvents);
@@ -136,6 +129,8 @@
             calendar.render();
         });
     </script>
+
+
 
 
 

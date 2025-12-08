@@ -32,8 +32,14 @@ public class ScheduleController {
     public String getBuyCoursePage(@RequestParam("amount") String amount,
                                    @RequestParam("note") String note,
                                    @RequestParam("id") Long id,
+                                   HttpServletRequest request,
                                    Model model
     ) throws Exception {
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            String role = (String) session.getAttribute("role");
+            model.addAttribute("role", role);
+        }
         String paymentUrl = this.momoService.handleMomoPayment(amount, note);
         String qrBase64 = this.momoService.generateQRCode(paymentUrl);
         log.info("Accessing buy course page");

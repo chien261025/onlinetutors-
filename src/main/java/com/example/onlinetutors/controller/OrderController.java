@@ -35,6 +35,10 @@ public class OrderController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
+        if(session != null) {
+            String role = (String) session.getAttribute("role");
+            model.addAttribute("role", role);
+        }
         String email = (String) session.getAttribute("email");
         User user = this.userService.getUserByEmail(email);
         Course course = this.courseService.handleGetCourseById(courseId);

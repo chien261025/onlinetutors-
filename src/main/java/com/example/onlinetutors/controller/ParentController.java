@@ -66,7 +66,12 @@ public class ParentController {
     }
 
     @GetMapping("/parent/courses/details")
-    public String getCoursesDetailsPage(Model model, @RequestParam("id") String id) {
+    public String getCoursesDetailsPage(Model model, @RequestParam("id") String id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            String roleName = (String) session.getAttribute("role");
+            model.addAttribute("role", roleName);
+        }
         List<Course> courses = this.courseService.handleGetCoursesBySubject(id);
         model.addAttribute("courses", courses);
         log.info("Accessing course details page");
@@ -109,8 +114,9 @@ public class ParentController {
                                        @RequestParam("id") Long id,
                                        HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            model.addAttribute("authorization", "authorization");
+        if (session != null) {
+            String roleName = (String) session.getAttribute("role");
+            model.addAttribute("role", roleName);
         }
         Course course = this.courseService.handleGetCourseById(id);
         User author = this.userService.getUserByEmail(course.getAuthor());
