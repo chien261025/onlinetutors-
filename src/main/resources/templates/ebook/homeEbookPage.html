@@ -76,10 +76,9 @@
                         </div>
 
                     </div>
-                    <div th:if="${ebooks.empty}" class="text-center py-5 text-muted">
-                        Hiện chưa có ebook nào.
+                    <div th:if="${ebooks.isEmpty()}" class="text-center py-5 text-muted">
+                        Không có ebook nào trong danh sách.
                     </div>
-
                 </div>
             </div>
         </div>
