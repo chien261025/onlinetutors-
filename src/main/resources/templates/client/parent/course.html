@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ECOURSES - Online Courses HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link th:href="@{/client/img/favicon.ico}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/client/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{/client/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid d-none d-lg-block">
+        <div class="row align-items-center py-4 px-xl-5">
+            <div class="col-lg-3">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0"><span class="text-primary">Hire</span>tutor</h1>
+                </a>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-map-marker-alt text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">TP.HCM</h6>
+                        <small>Hoàng diệu 2.tp.Thủ Đức</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-envelope text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">Email Us</h6>
+                        <small>info@example.com</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-phone text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">Call Us</h6>
+                        <small>0936******</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0"><span class="text-primary">E</span>COURSES</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav py-0">
+                            <a th:href="@{/index.html}" class="nav-item nav-link active">Trang Chủ</a>
+                            <a th:href="@{/about.html}" class="nav-item nav-link">Giới thiệu</a>
+                            <a th:href="@{/course.html}" class="nav-item nav-link">Khóa Học</a>
+                            <a th:href="@{/teacher.html}" class="nav-item nav-link">Giáo Viên</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="blog.html" class="dropdown-item">Danh sách Blog</a>
+                                    <a href="single.html" class="dropdown-item">Chi tiết Blog</a>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="nav-item nav-link">Liên Hệ</a>
+                        </div>
+                        <div class="d-flex align-items-center ml-auto">
+                            <a href="#" class="nav-item nav-link position-relative" style="color: #4A4A4A; font-size: 1.4rem; padding: 5px 12px;">
+                                <i class="fa fa-bell"></i>
+                                    <span class="position-absolute badge rounded-pill bg-danger" style="font-size: 0.6rem; top: 0px; right: 0px; border: 2px solid white;">
+                                        4
+                                    </span>
+                            </a>
+                            <a href="#" class="nav-item nav-link" style="color: #4A4A4A; font-size: 1.4rem; padding: 5px 12px;">
+                                <i class="fa fa-desktop"></i>
+                            </a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" style="padding: 5px 10px;">
+                                    <span th:text="${userInitials}" class="d-inline-flex align-items-center justify-content-center bg-secondary text-dark rounded-circle" style="width: 35px; height: 35px; font-weight: 600; font-size: 0.9rem;">
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right rounded-0 m-0">
+                                    <a href="#" class="dropdown-item">Hồ sơ</a>
+                                    <a href="#" class="dropdown-item">Điểm</a>
+                                    <a href="#" class="dropdown-item">Lịch</a>
+                                    <a href="#" class="dropdown-item">Tệp riêng tư</a>
+                                    <a href="#" class="dropdown-item">Báo cáo</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">Tùy chọn</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">Đăng xuất</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0"><span class="text-primary">E</span>COURSES</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid page-header" style="margin-bottom: 50px;">
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center" style="min-height: 200px">
+                <h3 class="display-4 text-white text-uppercase">Chi tiết khóa học</h3>
+                <div class="d-inline-flex text-white">
+                    <p class="m-0 text-uppercase"><a class="text-white" href="">Trang chủ</a></p>
+                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                    <p class="m-0 text-uppercase">Làm Game 2D</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                
+                <div class="col-lg-8">
+                    
+                    <div class="mb-5">
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="badge badge-secondary text-uppercase p-2"><i class="fa fa-code mr-2"></i>Lập trình Game</span>
+                            <div class="text-warning">
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+
+                            </div>
+                        </div>
+                        
+                        <h1 class="mb-3 text-dark font-weight-bold">Làm Game 2D Với Godot - Từ Cơ Bản Đến Nâng Cao</h1>
+                        <p class="lead">Khóa học hướng dẫn tạo game 2D từ con số 0. Thiết kế nhân vật, lập trình logic, hiệu ứng âm thanh và xuất bản game đa nền tảng.</p>
+                        
+                        <div class="position-relative mb-4 rounded overflow-hidden border">
+                            <img class="img-fluid w-100" th:src="@{/client/img/course-1.jpg}" alt="Course Image">
+                            <div class="bg-white position-absolute rounded-circle d-flex align-items-center justify-content-center shadow" style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; cursor: pointer;">
+                                <i class="fa fa-play text-primary fa-2x ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <ul class="nav nav-pills bg-secondary rounded mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active py-3 px-4 font-weight-bold" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab">Giới thiệu</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="pills-tabContent">
+                            
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+                                
+                                <div class="bg-white border rounded p-4 mb-4 shadow-sm">
+                                    <h4 class="font-weight-bold mb-3">thông tin</h4>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="btn-square bg-secondary rounded-circle text-primary mr-3">
+                                                    <i class="fa fa-certificate"></i>
+                                                </div>
+                                                <span>Hoàng diệu 2.tp.Thủ Đức</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="btn-square bg-secondary rounded-circle text-primary mr-3">
+                                                    <i class="fa fa-infinity"></i>
+                                                </div>
+                                                <span>info@example.com</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-center">
+                                                <div class="btn-square bg-secondary rounded-circle text-primary mr-3">
+                                                    <i class="fa fa-laptop-code"></i>
+                                                </div>
+                                                <span>0936******</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-5 bg-white border rounded p-4 shadow-sm">
+                                    <h3 class="font-weight-bold mb-3 text-dark">Mô tả khóa học</h3>
+                        
+                                        <p class="text-dark text-justify">
+                                            Chào mừng bạn đến với khóa học <strong>Làm Game 2D Với Godot</strong>. Đây là khóa học được thiết kế đặc biệt dành cho những người mới bắt đầu, chưa có nhiều kinh nghiệm về lập trình nhưng có niềm đam mê mãnh liệt với việc tạo ra các trò chơi điện tử.
+                                        </p>
+                        
+                                        <p class="text-dark text-justify">
+                                        Trong khóa học này, chúng ta sẽ cùng nhau đi qua từng bước cơ bản nhất: từ việc cài đặt Godot Engine, làm quen với giao diện, cho đến việc viết những dòng code đầu tiên bằng ngôn ngữ GDScript - một ngôn ngữ đơn giản, dễ học nhưng vô cùng mạnh mẽ.
+                                        </p>
+
+                                        <p class="text-dark text-justify">
+                                        Không chỉ dừng lại ở lý thuyết, khóa học tập trung vào thực hành. Bạn sẽ được hướng dẫn trực tiếp để xây dựng một tựa game hoàn chỉnh từ A đến Z. Chúng ta sẽ học cách thiết kế nhân vật, tạo chuyển động, xử lý va chạm, thêm âm thanh và hiệu ứng hình ảnh để làm cho trò chơi trở nên sống động.
+                                        </p>
+
+                                        <p class="text-dark text-justify mb-0">
+                                        Kết thúc khóa học, bạn sẽ nắm vững tư duy lập trình game và hoàn toàn tự tin để bắt đầu thực hiện những ý tưởng trò chơi của riêng mình và xuất bản chúng lên nhiều nền tảng khác nhau.
+                                        </p>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card border mb-2">
+                                        <div class="card-header bg-white p-0" id="headingOne">
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link btn-block text-left font-weight-bold text-dark p-3" type="button" data-toggle="collapse" data-target="#collapseOne">
+                                                    Phần 1: Giới thiệu Godot (3 bài)
+                                                </button>
+                                            </h2>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                            <div class="card-body p-0">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center bg-secondary border-0 mb-1">
+                                                        <span><i class="fa fa-play-circle text-primary mr-2"></i> Giới thiệu khóa học</span>
+                                                        <small>05:20</small>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fa fa-play-circle text-primary mr-2"></i> Cài đặt môi trường</span>
+                                                        <small>10:15</small>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card border mb-2">
+                                        <div class="card-header bg-white p-0" id="headingTwo">
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link btn-block text-left font-weight-bold text-dark p-3 collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo">
+                                                    Phần 2: GDScript Cơ bản (5 bài)
+                                                </button>
+                                            </h2>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
+                                            <div class="card-body p-0">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><i class="fa fa-lock text-muted mr-2"></i> Biến và Hằng số</span>
+                                                        <small>15:00</small>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-contact" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="media mb-4">
+                                            <img th:src="@{/client/img/testimonial-1.jpg}" alt="Image" class="img-fluid rounded-circle mr-3 mt-1" style="width: 45px;">
+                                            <div class="media-body">
+                                                <h6 class="font-weight-bold mb-1">Nguyễn Văn A <small class="font-weight-normal text-muted"><i>01 Jan 2025</i></small></h6>
+                                                <div class="text-warning mb-2">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </div>
+                                                <p>Khóa học rất tuyệt vời, dễ hiểu cho người mới bắt đầu.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mt-5 mt-lg-0">
+                    
+                    <div class="card border-0 shadow-sm sticky-top" style="top: 20px;">
+                        <div class="card-header bg-primary text-white text-center py-4">
+                            <h2 class="text-white font-weight-bold m-0">499.000đ</h2>
+                            <span class="text-white-50" style="text-decoration: line-through;">720.000đ</span>
+                            <span class="badge badge-light text-danger ml-2 font-weight-bold">-31%</span>
+                        </div>
+                        
+                        <div class="card-body p-4">
+                            <h5 class="font-weight-bold text-dark mb-4">Thông tin khóa học</h5>
+                            
+                            <ul class="list-unstyled mb-4">
+                                <li class="py-2 border-bottom d-flex justify-content-between">
+                                    <span><i class="far fa-clock text-primary mr-2"></i> Thời lượng</span>
+                                    <span class="font-weight-bold text-dark">10 buổi</span>
+                                </li>
+                                <li class="py-2 border-bottom d-flex justify-content-between">
+                                    <span><i class="fa fa-book-open text-primary mr-2"></i> Môn dạy</span>
+                                    <span class="font-weight-bold text-dark">văn</span>
+                                </li>
+                                <li class="py-2 border-bottom d-flex justify-content-between">
+                                    <span><i class="fa fa-video text-primary mr-2"></i> hình thức </span>
+                                    <span class="font-weight-bold text-dark">offline</span>
+                                </li>
+                                <li class="py-2 border-bottom d-flex justify-content-between">
+                                    <span><i class="fa fa-level-up-alt text-primary mr-2"></i> Trình độ</span>
+                                    <span class="font-weight-bold text-dark">lớp 4 </span>
+                                </li>
+                                <li class="py-2 d-flex justify-content-between">
+                                    <span><i class="fa fa-language text-primary mr-2"></i> liên hệ </span>
+                                    <span class="font-weight-bold text-dark">0123*******</span>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="btn btn-primary btn-block py-3 font-weight-bold mb-3">Đặt lịch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+        
+        <div class="row pt-5 justify-content-center">
+            
+            <div class="col-lg-10">
+                <div class="row">
+
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
+                        <p><i class="fa fa-map-marker-alt mr-2"></i>Hoàng diệu 2.tp.Thủ Đức</p>
+                        <p><i class="fa fa-phone-alt mr-2"></i>0936******</p>
+                        <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                        <div class="d-flex justify-content-start mt-4">
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-outline-light btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khóa học của chúng tôi</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Toán </a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Ngữ Văn</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Vật Lý</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Sinh Học</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Môn Hóa</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Địa Lý</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script th:src="@{https://code.jquery.com/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/client/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/client/lib/owlcarousel/owl.carousel.min.js}"></script>
+
+    <!-- Contact Javascript File -->
+    <script th:src="@{/client/mail/jqBootstrapValidation.min.js}"></script>
+    <script th:src="@{/client/mail/contact.js}"></script>
+
+    <!-- Template Javascript -->
+    <script th:src="@{/client/js/main.js}"></script>
+</body>
+
+</html>
