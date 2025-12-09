@@ -9992,3 +9992,16 @@ h6,
   list-style-type: none;
 }
 
+/* Xóa gạch chân item cuối cùng */
+.ebook-item:last-child { border-bottom: none !important; }
+
+/* Hiệu ứng hover cho tiêu đề sách */
+.hover-title:hover { color: #FF6600 !important; }
+
+/* Hiệu ứng cho nút màu cam */
+.btn-orange { transition: all 0.3s ease; }
+.btn-orange:hover {
+  background-color: #e05a00 !important; /* Màu cam đậm hơn khi di chuột */
+  transform: translateY(-1px); /* Nổi lên nhẹ */
+  box-shadow: 0 4px 6px rgba(255, 102, 0, 0.2) !important;
+}
