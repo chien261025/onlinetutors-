@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   mysql-db:
-    image: mysql:8
+#    build: ./mysql-database
+    image: clientchien123/onlinetutors-mysql:latest
     container_name: mysql-db
     environment:
       MYSQL_ROOT_PASSWORD: 123456
@@ -13,21 +14,30 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    volumes:
+      # Mount để lưu DB trên máy host
+      - mysql_data:/var/lib/mysql
+
+      # Import DB khi container chạy lần đầu
+      - ./onlinetutors.sql:/docker-entrypoint-initdb.d/onlinetutors.sql
+
 
   onlinetutors:
-    build: .
+    image: clientchien123/onlinetutors:latest
+#    build: .
     container_name: onlinetutors
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/onlinetutors
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 123456
-      SENDGRID_API_KEY: your_sendgrid_api_key_here
-
-    depends_on:
-      mysql-db:
-        condition: service_healthy
-    ports:
-      - "8080:8080"
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+    #      SENDGRID_API_KEY: your_sendgrid_api_key_here
     volumes:
       - ./uploads:/app/uploads
-
+volumes:
+  mysql_data:
