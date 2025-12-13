@@ -1,0 +1,33 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+
+  sendgrid:
+    api-key: ${SENDGRID_API_KEY}
+    from-email: ${SENDGRID_FROM_EMAIL:clientchien123@gmail.com}
+    verification_link: ${VERIFICATION_LINK}
+    templateId: d-5d6eea260b8748f2b4ca9cd15a484015
+    reset_password_link: ${RESET_PASSWORD_LINK}
+    reset_templateId: d-695839e607d340128d5777d320ed93f6
+
+  momo:
+    phone: ${MOMO_PHONE}
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
