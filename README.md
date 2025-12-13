@@ -27,5 +27,5 @@
 ## Cài Đặt
 1. Clone repository:
    ```bash
-   git clone https://github.com/username/OnlinePrivateTutorsFinderSystem.git
+   git clone https://github.com/chien261025/onlinetutors-.git
    cd OnlinePrivateTutorsFinderSystem
