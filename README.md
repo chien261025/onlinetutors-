@@ -29,3 +29,9 @@
    ```bash
    git clone https://github.com/chien261025/onlinetutors-.git
    cd OnlinePrivateTutorsFinderSystem
+ ## Tính Năng Tương Lai
+
+- **Chức năng video call: Cho phép gia sư và phụ huynh tổ chức các buổi học trực tuyến qua video.
+- **Hệ thống thông báo qua SMS: Cập nhật thông báo qua SMS khi có thay đổi về lịch học hoặc trạng thái đơn hàng.
+- Chức năng chat nội bộ : Cho phép gia sư và học sinh trò chuyện trực tiếp với nhau trong ứng dụng mà không cần ra ngoài.
+- Tính năng học thử miễn phí : Cho phép học sinh yêu cầu một buổi học thử miễn phí với gia sư để xem xét khả năng giảng dạy trước khi quyết định chọn gia sư.
